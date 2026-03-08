@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Bob Web3 Dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="favicon-512.png" sizes="512x512"/>
+<style>
+:root{--bg:#060610;--bg2:#0a0a1a;--bg3:#0e0e22;--purple:#7c3aed;--pm:#9333ea;--pl:#a855f7;--accent:#c084fc;--accent2:#e879f9;--glow:rgba(124,58,237,.45);--glow2:rgba(168,85,247,.2);--dim:rgba(124,58,237,.12);--border:rgba(124,58,237,.18);--text:#e2e8f0;--tm:#94a3b8;--td:#475569;--green:#22c55e;--mono:'Share Tech Mono',monospace;--display:'Syne',sans-serif;--body:'DM Sans',sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--pl);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,58,237,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.032) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+section{position:relative;z-index:1;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(6,6,16,.88);border-bottom:1px solid var(--border);transition:padding .3s;}
+.nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);letter-spacing:.08em;text-decoration:none;}
+.nav-logo span{color:var(--td);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:11px;color:var(--tm);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:.12em;padding:9px 20px;border:1px solid var(--purple);border-radius:3px;color:#fff;text-decoration:none;background:var(--purple);transition:all .2s;}
+.nav-cta:hover{background:var(--pl);box-shadow:0 0 20px var(--glow);}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--purple);transition:all .25s;}
+.btn-p:hover{background:var(--pl);border-color:var(--pl);box-shadow:0 0 28px var(--glow);transform:translateY(-2px);}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--accent);padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--border);transition:all .25s;}
+.btn-s:hover{border-color:var(--accent);background:var(--dim);transform:translateY(-2px);}
+.sl2{font-family:var(--mono);font-size:10px;color:var(--pl);letter-spacing:.3em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sl2::before{content:'';display:block;width:24px;height:1px;background:var(--pl);}
+h2{font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.025em;margin-bottom:60px;}
+.grad{background:linear-gradient(130deg,var(--pl),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.up{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+/* PAGE HERO */
+#page-hero{padding:160px 56px 80px;text-align:center;overflow:hidden;}
+.ph-orb{position:absolute;width:700px;height:400px;background:radial-gradient(ellipse,rgba(124,58,237,.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.ph-label{font-family:var(--mono);font-size:11px;color:var(--pl);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .7s ease forwards .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.ph-label::before,.ph-label::after{content:'';display:block;width:24px;height:1px;background:var(--pl);}
+#page-hero h1{font-family:var(--display);font-size:clamp(44px,6vw,88px);font-weight:800;line-height:.95;letter-spacing:-.025em;margin-bottom:24px;opacity:0;animation:fadeUp .7s ease forwards .4s;}
+.ph-desc{font-size:17px;color:var(--tm);max-width:520px;margin:0 auto;line-height:1.75;font-weight:300;opacity:0;animation:fadeUp .7s ease forwards .6s;}
+/* CONTACT CARDS */
+#contact-options{padding:60px 56px 100px;}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:60px;}
+.contact-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:48px 36px;text-align:center;transition:all .3s;text-decoration:none;display:block;position:relative;overflow:hidden;}
+.contact-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+.contact-card:hover{border-color:var(--purple);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px var(--glow2);}
+.contact-card:hover::before{transform:scaleX(1);}
+.cc-icon{font-size:48px;margin-bottom:20px;display:block;}
+.cc-title{font-family:var(--display);font-size:22px;font-weight:800;margin-bottom:8px;color:var(--text);}
+.cc-desc{font-size:13px;color:var(--tm);line-height:1.7;margin-bottom:24px;}
+.cc-handle{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em;}
+.cc-tag{display:inline-block;font-family:var(--mono);font-size:10px;padding:4px 12px;border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.08);color:var(--green);border-radius:20px;margin-bottom:16px;letter-spacing:.1em;}
+/* AVAILABILITY */
+#availability{padding:80px 56px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.avail-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.avail-status{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:40px;position:relative;overflow:hidden;}
+.avail-status::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),rgba(34,197,94,.3));}
+.avail-dot-big{width:16px;height:16px;background:var(--green);border-radius:50%;margin-bottom:20px;box-shadow:0 0 20px rgba(34,197,94,.5);animation:pulse 2s infinite;}
+.avail-title{font-family:var(--display);font-size:24px;font-weight:800;margin-bottom:10px;}
+.avail-desc{font-size:14px;color:var(--tm);line-height:1.75;margin-bottom:24px;}
+.avail-items{display:flex;flex-direction:column;gap:12px;}
+.avail-item{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tm);}
+.avail-check{color:var(--green);font-size:14px;flex-shrink:0;}
+.response-grid{display:flex;flex-direction:column;gap:16px;}
+.rg-item{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;}
+.rg-label{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.1em;text-transform:uppercase;}
+.rg-val{font-family:var(--display);font-size:16px;font-weight:700;color:var(--accent);}
+/* FAQ */
+#faq{padding:100px 56px;}
+.faq-list{display:flex;flex-direction:column;gap:0;max-width:760px;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:24px 0;cursor:pointer;transition:color .2s;}
+.faq-q:hover{color:var(--accent);}
+.faq-q-text{font-family:var(--display);font-size:18px;font-weight:700;}
+.faq-icon{font-family:var(--mono);font-size:20px;color:var(--td);transition:transform .3s,color .3s;flex-shrink:0;margin-left:20px;}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--accent);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:20px;}
+.faq-a-text{font-size:14px;color:var(--tm);line-height:1.8;}
+/* TESTIMONIALS */
+#testimonials{padding:100px 56px;background:var(--bg2);border-top:1px solid var(--border);}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.tc{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:36px;transition:all .3s;}
+.tc:hover{border-color:var(--purple);transform:translateY(-3px);}
+.tstars{color:var(--accent);margin-bottom:16px;letter-spacing:3px;font-size:13px;}
+.ttext{font-size:14px;color:var(--tm);line-height:1.8;margin-bottom:24px;font-style:italic;}
+.tauthor{display:flex;align-items:center;gap:14px;}
+.tav{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:14px;color:#fff;flex-shrink:0;}
+.tname{font-family:var(--display);font-weight:700;font-size:14px;}
+.trole{font-family:var(--mono);font-size:10px;color:var(--td);letter-spacing:.1em;margin-top:2px;}
+/* FINAL CTA */
+#final-cta{padding:120px 56px;text-align:center;overflow:hidden;}
+.ctaorb{position:absolute;width:900px;height:500px;background:radial-gradient(ellipse,rgba(124,58,237,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.ctasub{font-size:16px;color:var(--tm);margin-bottom:48px;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto;}
+.cbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.fcopy{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.08em;}
+.fstatus{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.1em;}
+.bdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
+@media(max-width:900px){nav{padding:16px 24px;}.nav-links{display:none;}#page-hero,#contact-options,#availability,#faq,#testimonials,#final-cta{padding-left:24px;padding-right:24px;}#page-hero{padding-top:120px;}.contact-grid{grid-template-columns:1fr;}.avail-inner{grid-template-columns:1fr;gap:32px;}.tgrid{grid-template-columns:1fr;}footer{padding:24px;flex-direction:column;gap:10px;text-align:center;}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cring"></div>
+<nav id="nav">
+  <a href="index.html" class="nav-logo">bob<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a href="https://t.me/oxbobdev" class="nav-cta" target="_blank">→ Hire Me</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section id="page-hero">
+  <div class="ph-orb"></div>
+  <div class="ph-label">Contact</div>
+  <h1>Let's Build<br><span class="grad">Together</span></h1>
+  <p class="ph-desc">I'm most reachable on Telegram — that's where all my projects start. Drop me a message and I'll reply same day.</p>
+</section>
+
+<!-- CONTACT OPTIONS -->
+<section id="contact-options">
+  <div class="contact-grid">
+    <a href="https://t.me/oxbobdev" class="contact-card reveal" target="_blank">
+      <div class="cc-tag">✓ Most Active</div>
+      <span class="cc-icon">✈</span>
+      <div class="cc-title">Telegram</div>
+      <div class="cc-desc">Best way to reach me. I respond fast, all projects start here. DM me with your project idea and I'll get back to you same day.</div>
+      <div class="cc-handle">@oxbobdev_USERNAME</div>
+    </a>
+    <a href="https://twitter.com/0xbobdev" class="contact-card reveal" target="_blank">
+      <span class="cc-icon">✦</span>
+      <div class="cc-title">Twitter / X</div>
+      <div class="cc-desc">Follow me on X for Web3 insights, project updates, and Solidity tips. DMs open for project inquiries too.</div>
+      <div class="cc-handle">@0xbobdev_HANDLE</div>
+    </a>
+    <a href="https://github.com/0xbobdev" class="contact-card reveal" target="_blank">
+      <span class="cc-icon">⬡</span>
+      <div class="cc-title">GitHub</div>
+      <div class="cc-desc">Check my public repositories for open-source work, contract examples, and proof of what I build. Code speaks for itself.</div>
+      <div class="cc-handle">github.com/0xbobdev</div>
+    </a>
+  </div>
+</section>
+
+<!-- AVAILABILITY -->
+<section id="availability">
+  <div class="avail-inner">
+    <div class="reveal">
+      <div class="sl2">Availability</div>
+      <h2 style="margin-bottom:32px;">Currently<br><span class="grad">Open</span></h2>
+      <div class="avail-status">
+        <div class="avail-dot-big"></div>
+        <div class="avail-title">Available for New Projects</div>
+        <div class="avail-desc">I'm currently taking on new clients. Whether it's a quick contract deployment or a full project launch, I have bandwidth.</div>
+        <div class="avail-items">
+          <div class="avail-item"><span class="avail-check">✓</span>Smart contract development</div>
+          <div class="avail-item"><span class="avail-check">✓</span>Full DApp builds</div>
+          <div class="avail-item"><span class="avail-check">✓</span>Bot development (TG, trading, volume)</div>
+          <div class="avail-item"><span class="avail-check">✓</span>End-to-end token launches</div>
+          <div class="avail-item"><span class="avail-check">✓</span>Ongoing retainer engagements</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="sl2">Response Times</div>
+      <h2 style="margin-bottom:32px;">How Fast<br><span class="grad">I Reply</span></h2>
+      <div class="response-grid">
+        <div class="rg-item"><span class="rg-label">Telegram DM</span><span class="rg-val">Same Day</span></div>
+        <div class="rg-item"><span class="rg-label">Project Quote</span><span class="rg-val">24 Hours</span></div>
+        <div class="rg-item"><span class="rg-label">Project Kickoff</span><span class="rg-val">48 Hours</span></div>
+        <div class="rg-item"><span class="rg-label">Existing Clients</span><span class="rg-val">&lt; 2 Hours</span></div>
+        <div class="rg-item"><span class="rg-label">Timezone</span><span class="rg-val">Flexible</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="sl2 reveal">FAQ</div>
+  <h2 class="reveal">Common<br>Questions</h2>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">How do we start a project?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">Just DM me on Telegram with a description of what you need. I'll ask a few questions to understand the scope, then send you a breakdown of deliverables, timeline, and cost within 24 hours. Most projects kick off within 48 hours of that first message.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">How much does a project cost?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">Every project is scoped individually — there's no one-size-fits-all pricing in Web3 development. A simple ERC-20 contract is very different from a full DeFi protocol. I give clear, fixed-price quotes upfront so there are no surprises. Message me with your project and I'll give you a number.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Do you do audits?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">I write secure contracts with test coverage and internal review, but I'm not a formal security auditing firm. For high-value protocols I strongly recommend a professional audit from firms like Code4rena, Certik, or Sherlock in addition to my work. I'm happy to assist in preparing your code for audit.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">What do I receive on project completion?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">You get the full source code, deployment scripts, technical documentation, verified contracts on block explorers, and a walkthrough call or video. Nothing is black-box. You own everything and can maintain it yourself or with any other developer after handoff.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Do you offer post-launch support?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">Yes. All projects include a support window (typically 7–30 days depending on scope) for bug fixes and questions. Beyond that, I offer ongoing retainer engagements for projects that need continuous development, upgrades, or monitoring.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Can you work on an existing codebase?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">Absolutely. I can review, extend, debug, and optimize existing smart contracts and DApps. Share the repo on Telegram and I'll take a look and tell you what's involved before any commitment.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Which chains do you support?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">All major EVM chains (Ethereum, Base, Arbitrum, Optimism, Polygon, BSC, Avalanche, Blast, zkSync, and more), Solana, and TON. If your chain is EVM-compatible, I can deploy there. For non-EVM chains, ask and I'll confirm support.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">How do payments work?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><p class="faq-a-text">Typically 50% upfront and 50% on delivery for most projects. I accept crypto (ETH, USDC, USDT) or fiat via bank transfer. For ongoing retainers, monthly invoices. We'll agree on payment terms before starting — no surprises.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="sl2 reveal">Reviews</div>
+  <h2 class="reveal">What Clients Say</h2>
+  <div class="tgrid">
+    <div class="tc reveal"><div class="tstars">★★★★★</div><div class="ttext">"Bob deployed our staking contract and built the entire DApp frontend in under a week. Clean code, zero issues on launch. Best Web3 dev I've worked with."</div><div class="tauthor"><div class="tav">AK</div><div><div class="tname">Alex K.</div><div class="trole">Founder · DeFi Protocol</div></div></div></div>
+    <div class="tc reveal"><div class="tstars">★★★★★</div><div class="ttext">"The trading bot he built executes flawlessly. Multi-wallet, custom strategy, runs 24/7. Solid work and great communication throughout the whole project."</div><div class="tauthor"><div class="tav">RV</div><div><div class="tname">R. Vance</div><div class="trole">Crypto Trader</div></div></div></div>
+    <div class="tc reveal"><div class="tstars">★★★★★</div><div class="ttext">"Handled our entire token launch — contract, vesting, website, TG bot. Everything worked perfectly. On time, under budget, 10/10 would recommend."</div><div class="tauthor"><div class="tav">JM</div><div><div class="tname">Jamie M.</div><div class="trole">CEO · Web3 Startup</div></div></div></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="final-cta">
+  <div class="ctaorb"></div>
+  <div class="sl2 reveal" style="justify-content:center">Start Now</div>
+  <h2 class="reveal">One Message<br><span class="grad">Away</span></h2>
+  <p class="ctasub reveal">You've got the idea. I've got the skills. Let's make it on-chain. Message me on Telegram and we'll figure out the rest.</p>
+  <div class="cbtns reveal">
+    <a href="https://t.me/oxbobdev" class="btn-p" target="_blank" style="font-size:14px;padding:18px 36px;">✦ Message on Telegram</a>
+    <a href="https://twitter.com/0xbobdev" class="btn-s" target="_blank">→ Follow on X</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fcopy">© 2025 Bob — Full Stack Web3 Developer</div>
+  <div class="fstatus"><div class="bdot"></div>Available for new projects</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+const obs=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){e.target.style.transitionDelay=(i*.07)+'s';e.target.classList.add('up');}});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('nav').style.padding=window.scrollY>50?'12px 56px':'18px 56px';});
+function toggleFaq(el){
+  const item=el.parentElement;
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+</script>
+</body>
+</html>

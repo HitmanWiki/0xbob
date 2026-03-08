@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Services — Bob Web3 Dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="favicon-512.png" sizes="512x512"/>
+<style>
+:root{--bg:#060610;--bg2:#0a0a1a;--bg3:#0e0e22;--purple:#7c3aed;--pm:#9333ea;--pl:#a855f7;--accent:#c084fc;--accent2:#e879f9;--glow:rgba(124,58,237,.45);--glow2:rgba(168,85,247,.2);--dim:rgba(124,58,237,.12);--border:rgba(124,58,237,.18);--text:#e2e8f0;--tm:#94a3b8;--td:#475569;--green:#22c55e;--mono:'Share Tech Mono',monospace;--display:'Syne',sans-serif;--body:'DM Sans',sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .15s,height .15s;}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--pl);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,58,237,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.032) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+section{position:relative;z-index:1;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(6,6,16,.88);border-bottom:1px solid var(--border);transition:padding .3s;}
+.nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);letter-spacing:.08em;text-decoration:none;}
+.nav-logo span{color:var(--td);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:11px;color:var(--tm);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:.12em;padding:9px 20px;border:1px solid var(--purple);border-radius:3px;color:#fff;text-decoration:none;background:var(--purple);transition:all .2s;}
+.nav-cta:hover{background:var(--pl);box-shadow:0 0 20px var(--glow);}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--purple);transition:all .25s;}
+.btn-p:hover{background:var(--pl);border-color:var(--pl);box-shadow:0 0 28px var(--glow);transform:translateY(-2px);}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--accent);padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--border);transition:all .25s;}
+.btn-s:hover{border-color:var(--accent);background:var(--dim);transform:translateY(-2px);}
+.sl2{font-family:var(--mono);font-size:10px;color:var(--pl);letter-spacing:.3em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sl2::before{content:'';display:block;width:24px;height:1px;background:var(--pl);}
+h2{font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.025em;margin-bottom:60px;}
+.grad{background:linear-gradient(130deg,var(--pl),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.up{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+/* PAGE HERO */
+#page-hero{padding:160px 56px 80px;overflow:hidden;}
+.ph-orb{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 65%);top:50%;right:-100px;transform:translateY(-50%);pointer-events:none;animation:breatheR 7s ease-in-out infinite;}
+@keyframes breatheR{0%,100%{transform:translateY(-50%) scale(1);}50%{transform:translateY(-50%) scale(1.1);opacity:.7;}}
+.ph-label{font-family:var(--mono);font-size:11px;color:var(--pl);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .7s ease forwards .2s;display:flex;align-items:center;gap:10px;}
+.ph-label::before{content:'';display:block;width:30px;height:1px;background:var(--pl);}
+#page-hero h1{font-family:var(--display);font-size:clamp(44px,6vw,82px);font-weight:800;line-height:.95;letter-spacing:-.025em;margin-bottom:24px;opacity:0;animation:fadeUp .7s ease forwards .4s;}
+.ph-desc{font-size:17px;color:var(--tm);max-width:560px;line-height:1.75;font-weight:300;opacity:0;animation:fadeUp .7s ease forwards .6s;}
+/* SERVICE BLOCKS */
+#svc-blocks{padding:80px 56px;}
+.svc-block{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;padding:72px 0;border-bottom:1px solid var(--border);}
+.svc-block:last-child{border-bottom:none;}
+.svc-block.reverse .svc-left{order:2;}
+.svc-block.reverse .svc-right{order:1;}
+.svc-num{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.25em;margin-bottom:12px;}
+.svc-title{font-family:var(--display);font-size:clamp(24px,3vw,38px);font-weight:800;letter-spacing:-.02em;margin-bottom:20px;line-height:1.1;}
+.svc-desc-long{font-size:15px;color:var(--tm);line-height:1.8;margin-bottom:28px;font-weight:300;}
+.svc-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.svc-features li{font-size:13px;color:var(--tm);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+.svc-features li::before{content:'▸';color:var(--pl);flex-shrink:0;margin-top:2px;}
+.svc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+.svc-tag{font-family:var(--mono);font-size:11px;padding:6px 14px;border:1px solid var(--border);border-radius:2px;color:var(--accent);background:var(--dim);}
+.svc-right{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:40px;position:relative;overflow:hidden;}
+.svc-right::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--accent2));}
+.svc-icon-big{font-size:64px;margin-bottom:24px;display:block;filter:drop-shadow(0 0 20px var(--glow2));}
+.svc-highlight{font-family:var(--display);font-size:22px;font-weight:800;margin-bottom:16px;}
+.svc-detail{font-size:13px;color:var(--tm);line-height:1.75;}
+.svc-chain-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.scc{font-family:var(--mono);font-size:10px;padding:5px 12px;border:1px solid var(--border);border-radius:2px;color:var(--td);}
+/* PRICING */
+#pricing{padding:100px 56px;background:var(--bg2);border-top:1px solid var(--border);}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pc{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:40px;transition:all .3s;position:relative;overflow:hidden;}
+.pc.featured{border-color:var(--purple);background:var(--bg2);}
+.pc.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--accent2));}
+.pc:hover{border-color:var(--purple);transform:translateY(-4px);}
+.ptier{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--td);margin-bottom:10px;}
+.ptitle{font-family:var(--display);font-size:24px;font-weight:800;margin-bottom:6px;}
+.pprice{font-family:var(--display);font-size:40px;font-weight:800;background:linear-gradient(135deg,var(--pl),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;line-height:1;}
+.pprice-note{font-family:var(--mono);font-size:11px;color:var(--td);margin-bottom:28px;}
+.plist{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.plist li{font-size:13px;color:var(--tm);display:flex;gap:10px;align-items:flex-start;}
+.plist li::before{content:'✓';color:var(--green);flex-shrink:0;}
+.featured-badge{position:absolute;top:20px;right:20px;font-family:var(--mono);font-size:10px;background:var(--purple);color:#fff;padding:4px 10px;border-radius:2px;letter-spacing:.1em;}
+/* PROCESS */
+#process{padding:100px 56px;}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.proc-grid::before{content:'';position:absolute;top:28px;left:calc(12.5% + 14px);right:calc(12.5% + 14px);height:1px;background:linear-gradient(90deg,transparent,var(--purple),var(--accent2),var(--purple),transparent);opacity:.35;}
+.ps{padding:0 24px 0 0;}
+.pdot{width:56px;height:56px;border:1px solid var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);margin-bottom:28px;position:relative;z-index:1;transition:all .3s;}
+.ps:hover .pdot{border-color:var(--accent);box-shadow:0 0 20px var(--glow);}
+.pdoti{width:12px;height:12px;background:var(--pl);border-radius:50%;box-shadow:0 0 12px var(--glow);}
+.pn{font-family:var(--mono);font-size:10px;color:var(--td);letter-spacing:.2em;margin-bottom:10px;}
+.ptname{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:10px;}
+.pdesc{font-size:13px;color:var(--tm);line-height:1.75;}
+/* CTA */
+#cta{padding:120px 56px;text-align:center;overflow:hidden;}
+.ctaorb{position:absolute;width:900px;height:500px;background:radial-gradient(ellipse,rgba(124,58,237,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.ctasub{font-size:16px;color:var(--tm);margin-bottom:48px;font-weight:300;max-width:440px;margin-left:auto;margin-right:auto;}
+.cbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.fcopy{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.08em;}
+.fstatus{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.1em;}
+.bdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
+@media(max-width:900px){nav{padding:16px 24px;}.nav-links{display:none;}#page-hero,#svc-blocks,#pricing,#process,#cta{padding:64px 24px;}#page-hero{padding-top:120px;}.svc-block{grid-template-columns:1fr;gap:40px;}.svc-block.reverse .svc-left,.svc-block.reverse .svc-right{order:unset;}.pgrid{grid-template-columns:1fr;}.proc-grid{grid-template-columns:1fr 1fr;gap:40px;}.proc-grid::before{display:none;}footer{padding:24px;flex-direction:column;gap:10px;text-align:center;}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cring"></div>
+<nav id="nav">
+  <a href="index.html" class="nav-logo">bob<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="https://t.me/oxbobdev" class="nav-cta" target="_blank">→ Hire Me</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section id="page-hero">
+  <div class="ph-orb"></div>
+  <div class="ph-label">Services</div>
+  <h1>What I Build<br><span class="grad">for You</span></h1>
+  <p class="ph-desc">Full-spectrum Web3 development — from smart contracts and DApps to bots, tokenomics, and everything in between. One dev, end to end.</p>
+</section>
+
+<!-- SERVICE BLOCKS -->
+<section id="svc-blocks">
+
+  <div class="svc-block reveal">
+    <div class="svc-left">
+      <div class="svc-num">01</div>
+      <div class="svc-title">Smart Contract<br><span class="grad">Development</span></div>
+      <p class="svc-desc-long">I write secure, gas-optimized smart contracts for any use case. From simple ERC-20 tokens to complex multi-contract DeFi protocols — built to production standard, ready for mainnet.</p>
+      <ul class="svc-features">
+        <li>ERC-20, ERC-721, ERC-1155, ERC-4626 tokens</li>
+        <li>Staking, vesting, locking, and distribution contracts</li>
+        <li>Governance + DAO contracts (OpenZeppelin Governor)</li>
+        <li>DEX integrations: Uniswap, PancakeSwap, Raydium</li>
+        <li>Proxy contracts: upgradeable logic via UUPS / Transparent</li>
+        <li>Multisig setups with Gnosis Safe</li>
+        <li>Security review + test coverage (Hardhat / Foundry)</li>
+      </ul>
+      <div class="svc-tags"><span class="svc-tag">Solidity</span><span class="svc-tag">Rust</span><span class="svc-tag">Hardhat</span><span class="svc-tag">Foundry</span><span class="svc-tag">OpenZeppelin</span></div>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Get a Quote</a>
+    </div>
+    <div class="svc-right">
+      <span class="svc-icon-big">⬡</span>
+      <div class="svc-highlight">Production-Ready Contracts</div>
+      <p class="svc-detail">Every contract comes with full test suite, deployment scripts, and verification on Etherscan / Basescan / any block explorer. I write documentation and walk you through everything on handoff.</p>
+      <div class="svc-chain-list">
+        <span class="scc">Ethereum</span><span class="scc">Base</span><span class="scc">Arbitrum</span><span class="scc">Polygon</span><span class="scc">BSC</span><span class="scc">Solana</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-block reverse reveal">
+    <div class="svc-left">
+      <div class="svc-num">02</div>
+      <div class="svc-title">DApp<br><span class="grad">Frontend</span></div>
+      <p class="svc-desc-long">Full React / Next.js decentralized applications with wallet integrations, live contract reads, real-time data, and UX that feels modern and polished — not like a GitHub repo.</p>
+      <ul class="svc-features">
+        <li>Multi-wallet: MetaMask, WalletConnect, Coinbase, Phantom</li>
+        <li>Contract read/write with Wagmi + Ethers.js / Viem</li>
+        <li>Real-time on-chain data via WebSocket / The Graph</li>
+        <li>Staking UIs, liquidity dashboards, NFT galleries</li>
+        <li>Transaction status handling and toast notifications</li>
+        <li>ENS name resolution and avatar display</li>
+        <li>Mobile-responsive, dark-mode, blazing fast</li>
+      </ul>
+      <div class="svc-tags"><span class="svc-tag">React</span><span class="svc-tag">Next.js</span><span class="svc-tag">Wagmi</span><span class="svc-tag">Viem</span><span class="svc-tag">Ethers.js</span><span class="svc-tag">Tailwind</span></div>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Get a Quote</a>
+    </div>
+    <div class="svc-right">
+      <span class="svc-icon-big">◈</span>
+      <div class="svc-highlight">UX That Converts</div>
+      <p class="svc-detail">Web3 projects fail on frontend. I build DApps that are intuitive for non-technical users while exposing the full power of your contracts. Deployed to Vercel / custom infra on handoff.</p>
+      <div class="svc-chain-list">
+        <span class="scc">EVM</span><span class="scc">Solana</span><span class="scc">Multi-chain</span><span class="scc">TON</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-block reveal">
+    <div class="svc-left">
+      <div class="svc-num">03</div>
+      <div class="svc-title">Web3<br><span class="grad">Websites</span></div>
+      <p class="svc-desc-long">High-converting project websites and landing pages built for crypto projects. Fast, visually premium, and designed to build trust and community — not just look good.</p>
+      <ul class="svc-features">
+        <li>Token launch landing pages with countdown and mint</li>
+        <li>NFT project sites with roadmap and team sections</li>
+        <li>Protocol / DeFi documentation sites</li>
+        <li>Animated components with GSAP / Framer Motion</li>
+        <li>Whitepaper integration and PDF generation</li>
+        <li>Blog / news section (MDX or CMS-based)</li>
+        <li>SEO-optimized, sub-1s load time</li>
+      </ul>
+      <div class="svc-tags"><span class="svc-tag">Next.js</span><span class="svc-tag">GSAP</span><span class="svc-tag">Framer</span><span class="svc-tag">Tailwind</span><span class="svc-tag">MDX</span></div>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Get a Quote</a>
+    </div>
+    <div class="svc-right">
+      <span class="svc-icon-big">◎</span>
+      <div class="svc-highlight">Premium First Impressions</div>
+      <p class="svc-detail">Your website is your project's first impression. I build sites that look like they came from a $50k agency at a fraction of the cost. Fully custom, no templates.</p>
+    </div>
+  </div>
+
+  <div class="svc-block reverse reveal">
+    <div class="svc-left">
+      <div class="svc-num">04</div>
+      <div class="svc-title">Tokenomics<br><span class="grad">& Strategy</span></div>
+      <p class="svc-desc-long">Token design, supply economics, emission schedules, and distribution strategy. I build tokenomics that align incentives, reward long-term holders, and sustain growth beyond launch day.</p>
+      <ul class="svc-features">
+        <li>Total supply design and allocation breakdown</li>
+        <li>Emission schedule modeling (linear, exponential, halving)</li>
+        <li>Vesting schedules: team, investors, advisors</li>
+        <li>Staking rewards economics and APY modeling</li>
+        <li>Burn mechanisms and deflationary design</li>
+        <li>Treasury and liquidity management strategy</li>
+        <li>Full tokenomics document / whitepaper section</li>
+      </ul>
+      <div class="svc-tags"><span class="svc-tag">Token Design</span><span class="svc-tag">Vesting</span><span class="svc-tag">Emissions</span><span class="svc-tag">DeFi Economics</span></div>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Get a Quote</a>
+    </div>
+    <div class="svc-right">
+      <span class="svc-icon-big">⟁</span>
+      <div class="svc-highlight">Built to Sustain</div>
+      <p class="svc-detail">Most tokens fail because tokenomics were designed for the launch, not after. I model scenarios and stress-test economics before anything goes on-chain.</p>
+    </div>
+  </div>
+
+  <div class="svc-block reveal">
+    <div class="svc-left">
+      <div class="svc-num">05</div>
+      <div class="svc-title">Bots &<br><span class="grad">Automation</span></div>
+      <p class="svc-desc-long">Custom Telegram bots, DEX trading bots, volume bots, sniper bots, and on-chain automation scripts. Fast execution, reliable infrastructure, 24/7 uptime.</p>
+      <ul class="svc-features">
+        <li>Telegram bots: gating, buy alerts, price, portfolio, raids</li>
+        <li>DEX trading bots with custom strategy engine</li>
+        <li>Volume bots with anti-detection patterns</li>
+        <li>Sniper bots with mempool monitoring and safety checks</li>
+        <li>Arbitrage bots across DEXs</li>
+        <li>On-chain automation (Gelato / custom keepers)</li>
+        <li>Full TG control panel for all bots</li>
+      </ul>
+      <div class="svc-tags"><span class="svc-tag">Node.js</span><span class="svc-tag">Python</span><span class="svc-tag">TG API</span><span class="svc-tag">Flashbots</span><span class="svc-tag">MEV</span></div>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Get a Quote</a>
+    </div>
+    <div class="svc-right">
+      <span class="svc-icon-big">⚡</span>
+      <div class="svc-highlight">Built for Speed & Reliability</div>
+      <p class="svc-detail">Bots run on dedicated VPS infra with auto-restart, monitoring, and error alerts. You get full source code, documentation, and deployment support on handoff.</p>
+      <div class="svc-chain-list">
+        <span class="scc">Ethereum</span><span class="scc">BSC</span><span class="scc">Solana</span><span class="scc">Base</span><span class="scc">Arbitrum</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-block reverse reveal">
+    <div class="svc-left">
+      <div class="svc-num">06</div>
+      <div class="svc-title">Multi-Chain<br><span class="grad">Everything</span></div>
+      <p class="svc-desc-long">Whatever chain your project lives on, I've built on it. EVM, Solana, TON, and more — I handle chain-specific architecture, tooling, and deployment edge cases so you don't have to.</p>
+      <ul class="svc-features">
+        <li>14+ EVM chains: Ethereum, Base, Arbitrum, Blast, zkSync...</li>
+        <li>Solana: Anchor programs, SPL tokens, Raydium integrations</li>
+        <li>TON: Jetton tokens, Toncoin contracts, TG mini-apps</li>
+        <li>Cross-chain bridges and LayerZero integrations</li>
+        <li>Chain-specific gas optimization and RPC management</li>
+        <li>Testnet → mainnet deployment workflows</li>
+        <li>Contract verification across all block explorers</li>
+      </ul>
+      <div class="svc-tags"><span class="svc-tag">EVM</span><span class="svc-tag">Solana</span><span class="svc-tag">TON</span><span class="svc-tag">LayerZero</span><span class="svc-tag">Anchor</span></div>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Get a Quote</a>
+    </div>
+    <div class="svc-right">
+      <span class="svc-icon-big">✺</span>
+      <div class="svc-highlight">Chain-Agnostic by Default</div>
+      <p class="svc-detail">I keep up with every chain's updates, tooling changes, and ecosystem quirks so your project isn't blocked by a dev who only knows Ethereum.</p>
+      <div class="svc-chain-list">
+        <span class="scc">Ethereum</span><span class="scc">Base</span><span class="scc">Solana</span><span class="scc">TON</span><span class="scc">Arbitrum</span><span class="scc">Polygon</span><span class="scc">BSC</span><span class="scc">zkSync</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="sl2 reveal">Pricing</div>
+  <h2 class="reveal">Flexible Engagement<br>Models</h2>
+  <div class="pgrid">
+    <div class="pc reveal">
+      <div class="ptier">Starter</div>
+      <div class="ptitle">Single Service</div>
+      <div class="pprice">Custom</div>
+      <div class="pprice-note">Scoped per project</div>
+      <ul class="plist">
+        <li>One specific deliverable</li>
+        <li>Smart contract OR DApp OR Bot</li>
+        <li>48hr response time</li>
+        <li>Post-delivery support (7 days)</li>
+        <li>Source code + documentation</li>
+      </ul>
+      <a href="https://t.me/oxbobdev" class="btn-s" target="_blank" style="width:100%;justify-content:center;">→ Get Quote</a>
+    </div>
+    <div class="pc featured reveal">
+      <div class="featured-badge">Popular</div>
+      <div class="ptier">Full Stack</div>
+      <div class="ptitle">End-to-End Launch</div>
+      <div class="pprice">Custom</div>
+      <div class="pprice-note">Full project scope</div>
+      <ul class="plist">
+        <li>Contract + DApp + Website</li>
+        <li>Tokenomics design included</li>
+        <li>TG bot setup</li>
+        <li>Launch support & walkthrough</li>
+        <li>30-day post-launch support</li>
+        <li>Priority response on TG</li>
+      </ul>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank" style="width:100%;justify-content:center;">✦ Let's Talk</a>
+    </div>
+    <div class="pc reveal">
+      <div class="ptier">Ongoing</div>
+      <div class="ptitle">Retainer</div>
+      <div class="pprice">Custom</div>
+      <div class="pprice-note">Monthly engagement</div>
+      <ul class="plist">
+        <li>Dedicated hours per month</li>
+        <li>Ongoing development & upgrades</li>
+        <li>Priority availability</li>
+        <li>Bug fixes included</li>
+        <li>Strategy consulting</li>
+      </ul>
+      <a href="https://t.me/oxbobdev" class="btn-s" target="_blank" style="width:100%;justify-content:center;">→ Get Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="sl2 reveal">Process</div>
+  <h2 class="reveal">How We Work Together</h2>
+  <div class="proc-grid reveal">
+    <div class="ps"><div class="pdot"><div class="pdoti"></div></div><div class="pn">01</div><div class="ptname">DM on Telegram</div><div class="pdesc">Tell me what you need. No forms, no calls required. Just message me on TG and we start talking.</div></div>
+    <div class="ps"><div class="pdot"><div class="pdoti"></div></div><div class="pn">02</div><div class="ptname">Scope & Quote</div><div class="pdesc">I scope the work clearly, define all deliverables, timeline, and cost. You know exactly what you're getting.</div></div>
+    <div class="ps"><div class="pdot"><div class="pdoti"></div></div><div class="pn">03</div><div class="ptname">Build & Update</div><div class="pdesc">I build with regular updates. You see progress — no silent weeks. Quick iterations based on your feedback.</div></div>
+    <div class="ps"><div class="pdot"><div class="pdoti"></div></div><div class="pn">04</div><div class="ptname">Deploy & Support</div><div class="pdesc">Go live. I hand off source code, docs, and deployment scripts. I stay available post-launch for support.</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="ctaorb"></div>
+  <div class="sl2 reveal" style="justify-content:center">Get Started</div>
+  <h2 class="reveal">Let's Scope<br>Your Project</h2>
+  <p class="ctasub reveal">Drop me the idea on Telegram. I'll come back with a scope, timeline, and quote — usually same day.</p>
+  <div class="cbtns reveal">
+    <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Message on Telegram</a>
+    <a href="work.html" class="btn-s">→ See My Previous Work</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fcopy">© 2025 Bob — Full Stack Web3 Developer</div>
+  <div class="fstatus"><div class="bdot"></div>Available for new projects</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+const obs=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){e.target.style.transitionDelay=(i*.07)+'s';e.target.classList.add('up');}});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('nav').style.padding=window.scrollY>50?'12px 56px':'18px 56px';});
+</script>
+</body>
+</html>

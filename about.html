@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — Bob Web3 Dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="favicon-512.png" sizes="512x512"/>
+<style>
+:root{--bg:#060610;--bg2:#0a0a1a;--bg3:#0e0e22;--purple:#7c3aed;--pm:#9333ea;--pl:#a855f7;--accent:#c084fc;--accent2:#e879f9;--glow:rgba(124,58,237,.45);--glow2:rgba(168,85,247,.2);--dim:rgba(124,58,237,.12);--border:rgba(124,58,237,.18);--text:#e2e8f0;--tm:#94a3b8;--td:#475569;--green:#22c55e;--mono:'Share Tech Mono',monospace;--display:'Syne',sans-serif;--body:'DM Sans',sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--pl);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,58,237,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.032) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+section{position:relative;z-index:1;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(6,6,16,.88);border-bottom:1px solid var(--border);transition:padding .3s;}
+.nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);letter-spacing:.08em;text-decoration:none;}
+.nav-logo span{color:var(--td);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:11px;color:var(--tm);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:.12em;padding:9px 20px;border:1px solid var(--purple);border-radius:3px;color:#fff;text-decoration:none;background:var(--purple);transition:all .2s;}
+.nav-cta:hover{background:var(--pl);box-shadow:0 0 20px var(--glow);}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--purple);transition:all .25s;}
+.btn-p:hover{background:var(--pl);border-color:var(--pl);box-shadow:0 0 28px var(--glow);transform:translateY(-2px);}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--accent);padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--border);transition:all .25s;}
+.btn-s:hover{border-color:var(--accent);background:var(--dim);transform:translateY(-2px);}
+.sl2{font-family:var(--mono);font-size:10px;color:var(--pl);letter-spacing:.3em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sl2::before{content:'';display:block;width:24px;height:1px;background:var(--pl);}
+h2{font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.025em;margin-bottom:60px;}
+.grad{background:linear-gradient(130deg,var(--pl),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.up{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+/* PAGE HERO */
+#page-hero{padding:160px 56px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;overflow:hidden;}
+.ph-orb{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 65%);top:50%;right:-80px;transform:translateY(-50%);pointer-events:none;animation:breatheR 7s ease-in-out infinite;}
+@keyframes breatheR{0%,100%{transform:translateY(-50%) scale(1);}50%{transform:translateY(-50%) scale(1.1);opacity:.7;}}
+.ph-label{font-family:var(--mono);font-size:11px;color:var(--pl);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .7s ease forwards .2s;display:flex;align-items:center;gap:10px;}
+.ph-label::before{content:'';display:block;width:30px;height:1px;background:var(--pl);}
+#page-hero h1{font-family:var(--display);font-size:clamp(44px,5.5vw,78px);font-weight:800;line-height:.95;letter-spacing:-.025em;margin-bottom:24px;opacity:0;animation:fadeUp .7s ease forwards .4s;}
+.ph-desc{font-size:16px;color:var(--tm);line-height:1.8;font-weight:300;opacity:0;animation:fadeUp .7s ease forwards .6s;margin-bottom:36px;}
+.avatar-box{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:48px;text-align:center;position:relative;overflow:hidden;opacity:0;animation:fadeUp .7s ease forwards .5s;}
+.avatar-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--accent2));}
+.avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:42px;color:#fff;margin:0 auto 24px;box-shadow:0 0 40px var(--glow2);}
+.avatar-name{font-family:var(--display);font-size:28px;font-weight:800;margin-bottom:6px;}
+.avatar-role{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.15em;text-transform:uppercase;margin-bottom:24px;}
+.avatar-status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.1em;}
+.bdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
+/* SKILLS */
+#skills{padding:100px 56px;background:var(--bg2);border-top:1px solid var(--border);}
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+.skill-box{background:var(--bg2);padding:36px;transition:background .3s;}
+.skill-box:hover{background:var(--bg3);}
+.skill-cat{font-family:var(--mono);font-size:10px;color:var(--pl);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;}
+.skill-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.skill-list li{font-size:13px;color:var(--tm);display:flex;align-items:center;gap:8px;}
+.skill-list li::before{content:'·';color:var(--pl);font-size:18px;line-height:1;}
+/* STACK BARS */
+#stack{padding:100px 56px;}
+.stack-items{display:flex;flex-direction:column;gap:20px;max-width:700px;}
+.sitem{display:flex;align-items:center;gap:24px;}
+.sitem-label{font-family:var(--mono);font-size:12px;color:var(--text);letter-spacing:.08em;min-width:140px;}
+.sbar-bg{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.sbar{height:100%;background:linear-gradient(90deg,var(--purple),var(--accent2));border-radius:2px;width:0;transition:width 1.4s cubic-bezier(0.4,0,0.2,1);}
+.sitem-pct{font-family:var(--mono);font-size:11px;color:var(--td);min-width:36px;text-align:right;}
+/* TIMELINE */
+#timeline{padding:100px 56px;background:var(--bg2);border-top:1px solid var(--border);}
+.tl{display:flex;flex-direction:column;gap:0;position:relative;max-width:700px;}
+.tl::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--purple),var(--accent2),transparent);}
+.tl-item{display:flex;gap:36px;padding-bottom:48px;}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:40px;}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px var(--glow);margin-top:6px;flex-shrink:0;border:2px solid var(--bg2);}
+.tl-year{font-family:var(--mono);font-size:10px;color:var(--td);letter-spacing:.1em;margin-top:8px;white-space:nowrap;}
+.tl-content{}
+.tl-title{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:8px;}
+.tl-desc{font-size:13px;color:var(--tm);line-height:1.75;}
+/* VALUES */
+#values{padding:100px 56px;}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.vc{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:36px;transition:all .3s;}
+.vc:hover{border-color:var(--purple);transform:translateY(-3px);}
+.vicon{font-size:32px;margin-bottom:16px;display:block;}
+.vtitle{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:10px;}
+.vdesc{font-size:13px;color:var(--tm);line-height:1.75;}
+/* STATS */
+#stats{padding:80px 56px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.srow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+.sbox{background:var(--bg);padding:40px;text-align:center;transition:background .3s;}
+.sbox:hover{background:var(--bg2);}
+.sbig{font-family:var(--display);font-size:52px;font-weight:800;background:linear-gradient(135deg,var(--pl),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:10px;}
+.ssub{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.18em;text-transform:uppercase;}
+/* CTA */
+#cta{padding:120px 56px;text-align:center;overflow:hidden;}
+.ctaorb{position:absolute;width:900px;height:500px;background:radial-gradient(ellipse,rgba(124,58,237,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.ctasub{font-size:16px;color:var(--tm);margin-bottom:48px;font-weight:300;max-width:440px;margin-left:auto;margin-right:auto;}
+.cbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.fcopy{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.08em;}
+.fstatus{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.1em;}
+@media(max-width:900px){nav{padding:16px 24px;}.nav-links{display:none;}#page-hero{padding:120px 24px 60px;grid-template-columns:1fr;}#skills,#stack,#timeline,#values,#stats,#cta{padding:64px 24px;}.skills-grid{grid-template-columns:1fr 1fr;}.vgrid{grid-template-columns:1fr;}.srow{grid-template-columns:1fr 1fr;}footer{padding:24px;flex-direction:column;gap:10px;text-align:center;}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cring"></div>
+<nav id="nav">
+  <a href="index.html" class="nav-logo">bob<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="https://t.me/oxbobdev" class="nav-cta" target="_blank">→ Hire Me</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section id="page-hero">
+  <div class="ph-orb"></div>
+  <div>
+    <div class="ph-label">About</div>
+    <h1>Hi, I'm Bob.<br><span class="grad">I Build Web3.</span></h1>
+    <p class="ph-desc">Full Stack Web3 Developer specializing in smart contracts, DApps, bots, and anything on-chain. I work with crypto projects from idea to mainnet — end to end, through Telegram.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Message on Telegram</a>
+      <a href="work.html" class="btn-s">→ See My Work</a>
+    </div>
+  </div>
+  <div class="avatar-box">
+    <div class="avatar">B</div>
+    <div class="avatar-name">Bob</div>
+    <div class="avatar-role">Full Stack Web3 Developer</div>
+    <div class="avatar-status"><div class="bdot"></div>Available for projects</div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sl2 reveal">Expertise</div>
+  <h2 class="reveal">What I Know<br>Cold</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-box">
+      <div class="skill-cat">Smart Contracts</div>
+      <ul class="skill-list">
+        <li>Solidity (EVM)</li>
+        <li>Rust (Solana / Anchor)</li>
+        <li>OpenZeppelin</li>
+        <li>Hardhat + Foundry</li>
+        <li>Contract security</li>
+        <li>Gas optimization</li>
+        <li>Proxy patterns</li>
+      </ul>
+    </div>
+    <div class="skill-box">
+      <div class="skill-cat">Frontend / DApps</div>
+      <ul class="skill-list">
+        <li>React + Next.js</li>
+        <li>Wagmi + Viem</li>
+        <li>Ethers.js + Web3.js</li>
+        <li>Tailwind CSS</li>
+        <li>GSAP + Framer Motion</li>
+        <li>The Graph</li>
+        <li>TypeScript</li>
+      </ul>
+    </div>
+    <div class="skill-box">
+      <div class="skill-cat">Bots & Backend</div>
+      <ul class="skill-list">
+        <li>Node.js + Python</li>
+        <li>Telegram Bot API</li>
+        <li>MEV + Flashbots</li>
+        <li>Mempool monitoring</li>
+        <li>MongoDB + Redis</li>
+        <li>PostgreSQL</li>
+        <li>VPS deployment</li>
+      </ul>
+    </div>
+    <div class="skill-box">
+      <div class="skill-cat">Chains & Protocols</div>
+      <ul class="skill-list">
+        <li>Ethereum + L2s</li>
+        <li>Solana + Anchor</li>
+        <li>TON + Jettons</li>
+        <li>Uniswap v2/v3/v4</li>
+        <li>Chainlink VRF + oracles</li>
+        <li>LayerZero bridges</li>
+        <li>IPFS + Pinata</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STACK BARS -->
+<section id="stack">
+  <div class="sl2 reveal">Proficiency</div>
+  <h2 class="reveal">Tech Stack<br>Depth</h2>
+  <div class="stack-items">
+    <div class="sitem reveal"><div class="sitem-label">Solidity</div><div class="sbar-bg"><div class="sbar" data-w="96"></div></div><div class="sitem-pct">96%</div></div>
+    <div class="sitem reveal"><div class="sitem-label">React / Next.js</div><div class="sbar-bg"><div class="sbar" data-w="92"></div></div><div class="sitem-pct">92%</div></div>
+    <div class="sitem reveal"><div class="sitem-label">Node.js / Python</div><div class="sbar-bg"><div class="sbar" data-w="90"></div></div><div class="sitem-pct">90%</div></div>
+    <div class="sitem reveal"><div class="sitem-label">Telegram Bots</div><div class="sbar-bg"><div class="sbar" data-w="95"></div></div><div class="sitem-pct">95%</div></div>
+    <div class="sitem reveal"><div class="sitem-label">Solana / Anchor</div><div class="sbar-bg"><div class="sbar" data-w="80"></div></div><div class="sitem-pct">80%</div></div>
+    <div class="sitem reveal"><div class="sitem-label">DeFi Protocols</div><div class="sbar-bg"><div class="sbar" data-w="88"></div></div><div class="sitem-pct">88%</div></div>
+    <div class="sitem reveal"><div class="sitem-label">MEV / Bots</div><div class="sbar-bg"><div class="sbar" data-w="85"></div></div><div class="sitem-pct">85%</div></div>
+    <div class="sitem reveal"><div class="sitem-label">Tokenomics</div><div class="sbar-bg"><div class="sbar" data-w="88"></div></div><div class="sitem-pct">88%</div></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="sl2 reveal">Journey</div>
+  <h2 class="reveal">How I Got Here</h2>
+  <div class="tl reveal">
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div><div class="tl-year">2019</div></div>
+      <div class="tl-content"><div class="tl-title">Started in Web2 Development</div><div class="tl-desc">Built full-stack web apps and APIs. Learned the fundamentals of software architecture, databases, and frontend frameworks.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div><div class="tl-year">2020</div></div>
+      <div class="tl-content"><div class="tl-title">Discovered Crypto & Solidity</div><div class="tl-desc">Deep-dived into Ethereum, studied Solidity, and deployed first smart contracts to testnet. Got hooked on the composability of DeFi protocols.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div><div class="tl-year">2021</div></div>
+      <div class="tl-content"><div class="tl-title">First Paid Web3 Projects</div><div class="tl-desc">Deployed first production contracts for clients — NFT collections and token launches during the bull market. Expanded into DApp development.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div><div class="tl-year">2022</div></div>
+      <div class="tl-content"><div class="tl-title">Expanded to Bots & Automation</div><div class="tl-desc">Built first trading and Telegram bots for clients. Learned MEV, mempool, and on-chain automation deeply. Expanded to Solana development.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div><div class="tl-year">2023</div></div>
+      <div class="tl-content"><div class="tl-title">Full-Stack Web3 Focus</div><div class="tl-desc">Established as a full-stack Web3 partner for projects. Built end-to-end launches: contracts, DApps, tokenomics, websites, and bot suites.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot" style="background:var(--accent2);box-shadow:0 0 12px var(--accent2);"></div><div class="tl-year">Now</div></div>
+      <div class="tl-content"><div class="tl-title">20+ Projects. Growing.</div><div class="tl-desc">Working with crypto founders, traders, and teams worldwide via Telegram. Available for smart contracts, DApps, bots, and full project launches.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="sl2 reveal">How I Work</div>
+  <h2 class="reveal">My Principles</h2>
+  <div class="vgrid">
+    <div class="vc reveal"><span class="vicon">⚡</span><div class="vtitle">Ship Fast</div><div class="vdesc">Most Web3 projects move fast. I match that pace — tight scopes, clear deliverables, and fast turnaround without cutting corners.</div></div>
+    <div class="vc reveal"><span class="vicon">◈</span><div class="vtitle">Code Quality First</div><div class="vdesc">Contracts are immutable. Bugs cost real money. I write clean, tested, reviewed code before anything goes to mainnet.</div></div>
+    <div class="vc reveal"><span class="vicon">🔒</span><div class="vtitle">Security Always</div><div class="vdesc">I think like an attacker first. Every contract I deploy goes through threat modeling, test suites, and manual review.</div></div>
+    <div class="vc reveal"><span class="vicon">📱</span><div class="vtitle">Telegram-Native</div><div class="vdesc">No project management tools. No Zoom calls required. I communicate fast on Telegram, the way the industry actually works.</div></div>
+    <div class="vc reveal"><span class="vicon">⟁</span><div class="vtitle">Full Ownership</div><div class="vdesc">You get full source code, documentation, deployment scripts, and a walkthrough. Nothing black-box, ever.</div></div>
+    <div class="vc reveal"><span class="vicon">🌐</span><div class="vtitle">Multi-Chain by Default</div><div class="vdesc">I don't lock you into one chain. I architect for the chain that makes the most sense for your project and users.</div></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="srow">
+    <div class="sbox reveal"><div class="sbig" data-target="20">0</div><div class="ssub">Projects Shipped</div></div>
+    <div class="sbox reveal"><div class="sbig" data-target="15">0</div><div class="ssub">Chains Deployed</div></div>
+    <div class="sbox reveal"><div class="sbig" data-target="50">0</div><div class="ssub">Contracts Written</div></div>
+    <div class="sbox reveal"><div class="sbig" data-target="4">0</div><div class="ssub">Years in Web3</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="ctaorb"></div>
+  <div class="sl2 reveal" style="justify-content:center">Work Together</div>
+  <h2 class="reveal">Let's Build<br><span class="grad">Something Great</span></h2>
+  <p class="ctasub reveal">I'm currently available for new projects. Drop me a message on Telegram and let's get started.</p>
+  <div class="cbtns reveal">
+    <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Message on Telegram</a>
+    <a href="contact.html" class="btn-s">→ Contact Page</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fcopy">© 2025 Bob — Full Stack Web3 Developer</div>
+  <div class="fstatus"><div class="bdot"></div>Available for new projects</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+const obs=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){e.target.style.transitionDelay=(i*.07)+'s';e.target.classList.add('up');}});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const cobs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.target.dataset.target){countUp(e.target,+e.target.dataset.target);cobs.unobserve(e.target);}});},{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el=>cobs.observe(el));
+function countUp(el,t){let s=0;const fn=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/1800,1),e=1-Math.pow(1-p,4);el.textContent=Math.floor(e*t)+'+';if(p<1)requestAnimationFrame(fn);else el.textContent=t+'+';};requestAnimationFrame(fn);}
+window.addEventListener('scroll',()=>{document.getElementById('nav').style.padding=window.scrollY>50?'12px 56px':'18px 56px';});
+// Skill bars
+const barObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.width=e.target.dataset.w+'%';barObs.unobserve(e.target);}});},{threshold:.5});
+document.querySelectorAll('.sbar').forEach(el=>barObs.observe(el));
+</script>
+</body>
+</html>
