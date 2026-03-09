@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Work — Bob Web3 Dev</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
-
+<title>Web3 Portfolio — DeFi, Bots, NFT, Token Launches | 0xBob</title>
+<meta name="description" content="Web3 portfolio — staking DApps, DEX trading bots, Telegram bots, token launches, NFT platforms, yield farming, launchpads. Real projects on EVM and Solana."/>
+<meta name="keywords" content="web3 portfolio, solidity developer portfolio, DeFi development, DEX trading bot developer, telegram bot web3, NFT launch platform, token launch service, volume bot crypto, launchpad development"/>
 <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 <link rel="icon" href="favicon-512.png" sizes="512x512"/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
 :root{--bg:#060610;--bg2:#0a0a1a;--bg3:#0e0e22;--purple:#7c3aed;--pm:#9333ea;--pl:#a855f7;--accent:#c084fc;--accent2:#e879f9;--glow:rgba(124,58,237,.45);--glow2:rgba(168,85,247,.2);--dim:rgba(124,58,237,.12);--border:rgba(124,58,237,.18);--text:#e2e8f0;--tm:#94a3b8;--td:#475569;--green:#22c55e;--mono:'Share Tech Mono',monospace;--display:'Syne',sans-serif;--body:'DM Sans',sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none;}
 .cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
 .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--pl);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,58,237,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.032) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+body::before{content:'';position:fixed;inset:0;overflow:hidden;background-image:linear-gradient(rgba(124,58,237,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.032) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
 section{position:relative;z-index:1;}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(6,6,16,.88);border-bottom:1px solid var(--border);transition:padding .3s;}
 .nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);letter-spacing:.08em;text-decoration:none;}
@@ -98,7 +99,7 @@ h2{font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:800;let
 .mcta{display:flex;gap:12px;margin-top:32px;}
 /* CTA */
 #cta{padding:100px 56px;text-align:center;overflow:hidden;background:var(--bg2);border-top:1px solid var(--border);}
-.ctaorb{position:absolute;width:900px;height:500px;background:radial-gradient(ellipse,rgba(124,58,237,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.ctaorb{position:absolute;width:min(900px,100%);height:500px;background:radial-gradient(ellipse,rgba(124,58,237,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
 .ctasub{font-size:16px;color:var(--tm);margin-bottom:48px;font-weight:300;max-width:440px;margin-left:auto;margin-right:auto;}
 .cbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
 footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
@@ -106,7 +107,39 @@ footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify
 .fstatus{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.1em;}
 .bdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
 @media(max-width:900px){nav{padding:16px 24px;}.nav-links{display:none;}#page-hero,#filter,#cases,#cta{padding-left:24px;padding-right:24px;}#page-hero{padding-top:120px;}.cgrid{grid-template-columns:1fr;}.mgrid{grid-template-columns:1fr;}footer{padding:24px;flex-direction:column;gap:10px;text-align:center;}}
+
+/* ── MOBILE NAV ── */
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
+.ham span{display:block;width:24px;height:2px;background:var(--accent);border-radius:2px;transition:all .3s;}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.ham.open span:nth-child(2){opacity:0;}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-menu{display:none;position:fixed;inset:0;top:0;background:rgba(6,6,16,.98);backdrop-filter:blur(20px);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:100px 24px 40px;}
+.mob-menu.open{display:flex;}
+.mob-menu ul{list-style:none;display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;}
+.mob-menu ul a{font-family:var(--mono);font-size:18px;color:var(--text);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;padding:16px 0;display:block;text-align:center;width:100%;border-bottom:1px solid var(--border);transition:color .2s;}
+.mob-menu ul a:hover{color:var(--accent);}
+/* ── GLOBAL OVERFLOW FIX ── */
+html,body{max-width:100%;overflow-x:hidden;}
+.ctaorb{width:min(900px,100vw)!important;}
+@media(max-width:900px){
+  body{cursor:auto!important;}
+  .cursor,.cursor-ring{display:none!important;}
+  .ham{display:flex;}
+  .nav-links{display:none!important;}
+  .nav-cta{display:none;}
+  .hero-stats{display:none!important;}
+  .orb,.o1,.o2,.o3,.ph-orb{width:min(500px,90vw)!important;right:-60px!important;}
+  #hero{padding:110px 20px 60px!important;min-height:auto;}
+  #hero h1{font-size:clamp(40px,11vw,72px)!important;}
+  .hero-content{max-width:100%!important;}
+  .hero-btns{flex-direction:column!important;}
+  .btn-p,.btn-s{width:100%;justify-content:center!important;}
+  section{overflow:hidden;}
+}
+
 </style>
+
 </head>
 <body>
 <div class="cursor" id="cursor"></div><div class="cursor-ring" id="cring"></div>
@@ -117,9 +150,10 @@ footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify
     <li><a href="services.html">Services</a></li>
     <li><a href="work.html" class="active">Work</a></li>
     <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="https://t.me/oxbobdev" class="nav-cta" target="_blank">→ Hire Me</a>
+<button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- PAGE HERO -->
@@ -155,6 +189,7 @@ footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify
     <div class="cc reveal" data-cat="nft" onclick="openModal('token')"><div class="cbadge b-nft">✦ Token</div><span class="cicon">🪙</span><div class="ctitle">Token Launch Suite</div><div class="cdesc">End-to-end token launch: contract, vesting, tokenomics, website, TG bot — shipped in one week.</div><div class="cfoot"><div class="cstack"><span class="cchip">ERC-20</span><span class="cchip">Vesting</span><span class="cchip">Site</span></div><div class="ca">↗</div></div></div>
     <div class="cc reveal" data-cat="nft" onclick="openModal('nft')"><div class="cbadge b-nft">◈ NFT</div><span class="cicon">🖼</span><div class="ctitle">NFT Launch Platform</div><div class="cdesc">Full NFT launch with minting DApp, reveal mechanic, IPFS metadata, and rarity dashboard.</div><div class="cfoot"><div class="cstack"><span class="cchip">ERC-721A</span><span class="cchip">IPFS</span><span class="cchip">React</span></div><div class="ca">↗</div></div></div>
     <div class="cc reveal" data-cat="defi" onclick="openModal('defi')"><div class="cbadge b-defi">◈ DeFi</div><span class="cicon">🏦</span><div class="ctitle">Yield Farming Protocol</div><div class="cdesc">Dual-token yield farming with LP staking, auto-compounding vaults, and on-chain governance.</div><div class="cfoot"><div class="cstack"><span class="cchip">Solidity</span><span class="cchip">Hardhat</span><span class="cchip">React</span></div><div class="ca">↗</div></div></div>
+      <div class="cc reveal" data-cat="defi" onclick="openModal('launchpad')"><div class="cbadge b-defi">🚀 Launchpad</div><span class="cicon">🚀</span><div class="ctitle">Token Launchpad</div><div class="cdesc">Full presale launchpad with whitelist, FCFS raise, auto-vesting on claim, anti-bot protection, and live launchpad site.</div><div class="cfoot"><div class="cstack"><span class="cchip">Solidity</span><span class="cchip">React</span><span class="cchip">Vesting</span></div><div class="ca">↗</div></div></div>
   </div>
 </section>
 
@@ -207,6 +242,7 @@ const M={
   sniper:{badge:'<span class="cbadge b-trading">🎯 Sniper</span>',icon:'🎯',title:'Token Sniper Bot',tagline:'Mempool-watching sniper that auto-buys new launches on liquidity add, with safety checks, Flashbots integration, and configurable auto-sell.',features:['Mempool monitoring for AddLiquidity events','Auto-buy within 1-2 blocks of launch','Honeypot detection + tax scan + permission check','Private RPC nodes for speed advantage','Flashbots integration for MEV protection','Auto-sell at configurable profit multiplier','Full TG control: start, stop, status, PnL'],stack:['Node.js','Ethers.js','Flashbots','Private RPC','Mempool Stream'],chains:['Ethereum','BSC','Base','Arbitrum'],demo:[{t:'p',c:'sniper start --maxTax 5 --minLiq 2ETH'},{t:'o',c:'✓ Sniper running — watching mempool'},{t:'c',c:'// Liquidity add detected →'},{t:'o',c:'🎯 TARGET: 0x4a3f... | Liq: 3.2 ETH'},{t:'o',c:'  ✓ No honeypot | Tax: 3/3 ✓'},{t:'o',c:'⚡ BOUGHT 0.3 ETH @ block 19,847,221'},{t:'o',c:'💰 AUTO-SOLD @ 2.3x — +0.39 ETH'}]},
   token:{badge:'<span class="cbadge b-nft">✦ Token</span>',icon:'🪙',title:'Token Launch Suite',tagline:'End-to-end token launch: ERC-20, vesting & distribution contracts, tokenomics, project website, and TG community bot. Launched in one week.',features:['ERC-20 with tax, anti-bot, max wallet','Team & investor vesting with cliff/linear release','Airdrop + presale smart contracts','Full tokenomics design document','High-converting project website','TG bot: price, alerts, gating','Liquidity lock + renounce walkthrough'],stack:['Solidity','ERC-20','Hardhat','Next.js','TG Bot','Node.js'],chains:['Ethereum','Base','BSC'],demo:[{t:'p',c:'deploy MyToken --supply 1B --tax 3/3'},{t:'o',c:'✓ Token: 0x3e7c...a912'},{t:'p',c:'deploy Vesting --team 15% --cliff 6mo'},{t:'o',c:'✓ Vesting: 6mo cliff, 24mo linear'},{t:'p',c:'add-liquidity --amount 2ETH --lock 365d'},{t:'o',c:'✓ Liquidity locked — PinkLock'},{t:'o',c:'✓ Contract renounced'}]},
   nft:{badge:'<span class="cbadge b-nft">◈ NFT</span>',icon:'🖼',title:'NFT Launch Platform',tagline:'Complete NFT collection launch: ERC-721A with reveal mechanic, IPFS metadata, whitelist mint, rarity dashboard, and royalties.',features:['ERC-721A for gas-efficient batch minting','Whitelist via Merkle tree + public + team mint','VRF reveal mechanic for true randomness','IPFS metadata upload and pinning automation','Rarity dashboard with trait breakdown','EIP-2981 royalties for marketplace support','Full minting DApp with countdown + live supply'],stack:['ERC-721A','Merkle Tree','IPFS','Pinata','React','Ethers.js','Chainlink VRF'],chains:['Ethereum','Base','Polygon'],demo:[{t:'p',c:'deploy NFTCollection --supply 5000 --wl 0.05'},{t:'o',c:'✓ Contract: 0x7d3f...e21a'},{t:'o',c:'  WL: 0.05 ETH | Public: 0.08 ETH'},{t:'p',c:'upload-metadata --folder ./assets'},{t:'o',c:'✓ 5000 items pinned to IPFS'},{t:'o',c:'  CID: QmXz7...kp3N'},{t:'o',c:'✓ VRF seed committed — reveal ready'}]},
+  launchpad:{badge:'<span class="cbadge b-defi">🚀 Launchpad</span>',icon:'🚀',title:'Token Launchpad',tagline:'Full token launchpad — presale contract, whitelist, FCFS raise, auto-refund on miss, vesting on claim, anti-bot, and a live launchpad site. Deployed on EVM and Solana.',features:['Whitelist + FCFS + hybrid raise modes','Softcap / hardcap with auto-refund if goal not met','Vesting on claim — linear or cliff post-raise','Anti-bot: max buy per wallet, cooldown, block delay','Raise in ETH, USDC, USDT, or SOL','Live launchpad site with real-time progress bar','Fair launch + auto liquidity add on completion'],stack:['Solidity','Hardhat','React','Ethers.js','Wagmi','Tailwind CSS'],chains:['Ethereum','Base','BSC','Arbitrum','Solana'],demo:[{t:'p',c:'deploy Launchpad --soft 50ETH --hard 200ETH'},{t:'o',c:'✓ Launchpad deployed: 0x4a2f...c91d'},{t:'o',c:'  Softcap: 50 ETH | Hardcap: 200 ETH'},{t:'p',c:'setWhitelist --addresses whitelist.json'},{t:'o',c:'✓ 500 addresses whitelisted'},{t:'p',c:'openSale --phase whitelist --duration 24h'},{t:'o',c:'✓ Whitelist sale open'},{t:'o',c:'  Raised: 142 ETH / 200 ETH (71%)'},{t:'c',c:'// Hardcap hit → vesting auto-activated'}]},
   defi:{badge:'<span class="cbadge b-defi">◈ DeFi</span>',icon:'🏦',title:'Yield Farming Protocol',tagline:'Full DeFi yield farming with dual-token rewards, LP staking, auto-compounding vaults, and on-chain governance for community proposals.',features:['LP staking: earn dual-token rewards','Auto-compounding vault every 8 hours','On-chain governance: propose + vote + execute','Timelock controller for admin actions','Subgraph for TVL, APY, volume history','Emergency pause and withdrawal','Full event logs and audit trail'],stack:['Solidity','Hardhat','OpenZeppelin','The Graph','React','Ethers.js'],chains:['Ethereum','Arbitrum','Polygon','Avalanche'],demo:[{t:'p',c:'deploy YieldFarm --emission 1000/day'},{t:'o',c:'✓ Farm deployed'},{t:'p',c:'addPool --lp ETH/TOKEN --alloc 40'},{t:'o',c:'✓ Pool added — 40% allocation'},{t:'p',c:'deployVault --autoCompound 8h'},{t:'o',c:'✓ Vault live — auto-compounds every 8h'},{t:'o',c:'  Current APY: 284%'}]}
 };
 
@@ -243,6 +279,28 @@ function openModal(k){
 function closeModal(){document.getElementById('ovl').classList.remove('open');document.body.style.overflow='';}
 function closeOut(e){if(e.target===document.getElementById('ovl'))closeModal();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var btn=document.getElementById('ham');
+  var menu=document.getElementById('mobMenu');
+  if(btn&&menu){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+    });
+    // close on link tap
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        btn.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow='';
+      });
+    });
+  }
+});
 </script>
 </body>
 </html>

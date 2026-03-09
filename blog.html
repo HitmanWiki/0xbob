@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Web3 Dev Blog — Smart Contracts, DeFi, Bots | 0xBob</title>
+<meta name="description" content="Web3 development blog — Solidity tutorials, DeFi protocol guides, trading bot walkthroughs, tokenomics breakdowns, and smart contract best practices. By 0xBob, Full Stack Web3 Developer."/>
+<meta name="keywords" content="solidity tutorial, smart contract development guide, how to deploy staking contract, DeFi protocol development, trading bot development, tokenomics design, web3 developer blog, hire solidity developer, token launchpad development, ERC20 token development"/>
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="favicon-512.png" sizes="512x512"/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#060610;--bg2:#0a0a1a;--bg3:#0e0e22;--purple:#7c3aed;--pm:#9333ea;--pl:#a855f7;--accent:#c084fc;--accent2:#e879f9;--glow:rgba(124,58,237,.45);--glow2:rgba(168,85,247,.2);--dim:rgba(124,58,237,.12);--border:rgba(124,58,237,.18);--text:#e2e8f0;--tm:#94a3b8;--td:#475569;--green:#22c55e;--mono:'Share Tech Mono',monospace;--display:'Syne',sans-serif;--body:'DM Sans',sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--pl);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+body::before{content:'';position:fixed;inset:0;overflow:hidden;background-image:linear-gradient(rgba(124,58,237,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.032) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+section{position:relative;z-index:1;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(6,6,16,.88);border-bottom:1px solid var(--border);transition:padding .3s;}
+.nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);letter-spacing:.08em;text-decoration:none;}
+.nav-logo span{color:var(--td);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:11px;color:var(--tm);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:.12em;padding:9px 20px;border:1px solid var(--purple);border-radius:3px;color:#fff;text-decoration:none;background:var(--purple);transition:all .2s;}
+.nav-cta:hover{background:var(--pl);box-shadow:0 0 20px var(--glow);}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--purple);transition:all .25s;}
+.btn-p:hover{background:var(--pl);border-color:var(--pl);box-shadow:0 0 28px var(--glow);transform:translateY(-2px);}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--accent);padding:15px 30px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.1em;border:1px solid var(--border);transition:all .25s;}
+.btn-s:hover{border-color:var(--accent);background:var(--dim);transform:translateY(-2px);}
+.sl2{font-family:var(--mono);font-size:10px;color:var(--pl);letter-spacing:.3em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sl2::before{content:'';display:block;width:24px;height:1px;background:var(--pl);}
+.grad{background:linear-gradient(130deg,var(--pl),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.up{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+/* PAGE HERO */
+#page-hero{padding:160px 56px 80px;text-align:center;overflow:hidden;}
+.ph-orb{position:absolute;width:700px;height:400px;background:radial-gradient(ellipse,rgba(124,58,237,.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.ph-label{font-family:var(--mono);font-size:11px;color:var(--pl);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .7s ease forwards .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.ph-label::before,.ph-label::after{content:'';display:block;width:24px;height:1px;background:var(--pl);}
+#page-hero h1{font-family:var(--display);font-size:clamp(44px,6vw,80px);font-weight:800;line-height:.95;letter-spacing:-.025em;margin-bottom:24px;opacity:0;animation:fadeUp .7s ease forwards .4s;}
+.ph-desc{font-size:17px;color:var(--tm);max-width:560px;margin:0 auto;line-height:1.75;font-weight:300;opacity:0;animation:fadeUp .7s ease forwards .6s;}
+/* BLOG GRID */
+#blog-list{padding:60px 56px 100px;}
+.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:48px;}
+.blog-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:all .3s;position:relative;}
+.blog-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.blog-card:hover{border-color:var(--purple);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 30px var(--glow2);}
+.blog-card:hover::after{transform:scaleX(1);}
+.bc-img{height:180px;background:linear-gradient(135deg,var(--bg3),var(--bg2));display:flex;align-items:center;justify-content:center;font-size:64px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.bc-img::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(124,58,237,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.06) 1px,transparent 1px);background-size:30px 30px;}
+.bc-body{padding:28px;}
+.bc-meta{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+.bc-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;padding:4px 10px;border-radius:20px;border:1px solid;text-transform:uppercase;}
+.t-sol{color:#34d399;border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.08);}
+.t-defi{color:#60a5fa;border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.08);}
+.t-bot{color:#f472b6;border-color:rgba(244,114,182,.3);background:rgba(244,114,182,.08);}
+.t-token{color:#fb923c;border-color:rgba(251,146,60,.3);background:rgba(251,146,60,.08);}
+.t-launch{color:#a78bfa;border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.08);}
+.bc-date{font-family:var(--mono);font-size:10px;color:var(--td);letter-spacing:.1em;}
+.bc-title{font-family:var(--display);font-size:20px;font-weight:800;margin-bottom:10px;line-height:1.2;color:var(--text);}
+.bc-excerpt{font-size:13px;color:var(--tm);line-height:1.75;margin-bottom:20px;}
+.bc-footer{display:flex;justify-content:space-between;align-items:center;}
+.bc-read{font-family:var(--mono);font-size:10px;color:var(--td);letter-spacing:.12em;}
+.bc-arr{font-size:16px;color:var(--td);transition:all .3s;}
+.blog-card:hover .bc-arr{transform:translate(3px,-3px);color:var(--accent);}
+/* MODAL / POST */
+.movl{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);display:flex;align-items:flex-start;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:24px;overflow-y:auto;}
+.movl.open{opacity:1;pointer-events:all;}
+.post{background:var(--bg2);border:1px solid var(--purple);border-radius:6px;max-width:780px;width:100%;transform:translateY(30px);transition:transform .35s ease,opacity .35s ease;opacity:0;margin:auto;position:relative;}
+.movl.open .post{transform:translateY(0);opacity:1;}
+.post-top{height:4px;background:linear-gradient(90deg,var(--purple),var(--accent2));border-radius:6px 6px 0 0;}
+.post-inner{padding:52px;}
+.pclose{position:absolute;top:18px;right:20px;font-family:var(--mono);font-size:18px;color:var(--td);cursor:pointer;background:none;border:none;transition:color .2s;}
+.pclose:hover{color:var(--accent);}
+.post-meta{display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
+.post h1{font-family:var(--display);font-size:clamp(26px,4vw,40px);font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;}
+.post-intro{font-size:16px;color:var(--tm);line-height:1.8;margin-bottom:36px;font-style:italic;border-left:3px solid var(--purple);padding-left:20px;}
+.post h2{font-family:var(--display);font-size:22px;font-weight:800;margin:36px 0 14px;color:var(--text);}
+.post h3{font-family:var(--display);font-size:17px;font-weight:700;margin:24px 0 10px;color:var(--accent);}
+.post p{font-size:15px;color:var(--tm);line-height:1.85;margin-bottom:18px;}
+.post ul,.post ol{padding-left:24px;margin-bottom:18px;}
+.post li{font-size:15px;color:var(--tm);line-height:1.8;margin-bottom:6px;}
+.post li::marker{color:var(--pl);}
+.code-block{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:24px;margin:20px 0;font-family:var(--mono);font-size:12px;line-height:1.9;overflow-x:auto;color:var(--text);}
+.code-block .kw{color:var(--pl);}
+.code-block .fn{color:var(--accent2);}
+.code-block .cm{color:var(--td);}
+.code-block .st{color:#34d399;}
+.code-block .nm{color:#fb923c;}
+.tip-box{background:rgba(124,58,237,.08);border:1px solid var(--border);border-left:3px solid var(--purple);border-radius:4px;padding:20px 24px;margin:20px 0;}
+.tip-box .tip-label{font-family:var(--mono);font-size:10px;color:var(--pl);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;}
+.tip-box p{margin-bottom:0;font-size:14px;}
+.post-cta{background:var(--bg);border:1px solid var(--purple);border-radius:4px;padding:36px;text-align:center;margin-top:48px;}
+.post-cta h3{font-family:var(--display);font-size:22px;font-weight:800;margin-bottom:10px;}
+.post-cta p{font-size:14px;color:var(--tm);margin-bottom:24px;}
+.post-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+/* SIDEBAR */
+#blog-sidebar{padding:0 56px 80px;}
+.sidebar-inner{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.sidebar-box{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:32px;}
+.sb-title{font-family:var(--mono);font-size:10px;color:var(--pl);letter-spacing:.25em;text-transform:uppercase;margin-bottom:20px;}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:10px;}
+.tag{font-family:var(--mono);font-size:11px;padding:7px 14px;border:1px solid var(--border);border-radius:2px;color:var(--td);transition:all .2s;cursor:default;}
+.tag:hover{border-color:var(--accent);color:var(--accent);background:var(--dim);}
+/* CTA */
+#cta{padding:100px 56px;text-align:center;overflow:hidden;background:var(--bg2);border-top:1px solid var(--border);}
+.ctaorb{position:absolute;width:min(900px,100%);height:500px;background:radial-gradient(ellipse,rgba(124,58,237,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.ctasub{font-size:16px;color:var(--tm);margin-bottom:48px;font-weight:300;max-width:440px;margin-left:auto;margin-right:auto;}
+.cbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+footer{padding:28px 56px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.fcopy{font-family:var(--mono);font-size:11px;color:var(--td);letter-spacing:.08em;}
+.fstatus{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.1em;}
+.bdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
+@media(max-width:900px){nav{padding:16px 24px;}.nav-links{display:none;}#page-hero,#blog-list,#blog-sidebar,#cta{padding-left:24px;padding-right:24px;}#page-hero{padding-top:120px;}.blog-grid{grid-template-columns:1fr;}.sidebar-inner{grid-template-columns:1fr;}.post-inner{padding:28px;}footer{padding:24px;flex-direction:column;gap:10px;text-align:center;}}
+
+/* ── MOBILE NAV ── */
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
+.ham span{display:block;width:24px;height:2px;background:var(--accent);border-radius:2px;transition:all .3s;}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.ham.open span:nth-child(2){opacity:0;}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-menu{display:none;position:fixed;inset:0;top:0;background:rgba(6,6,16,.98);backdrop-filter:blur(20px);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:100px 24px 40px;}
+.mob-menu.open{display:flex;}
+.mob-menu ul{list-style:none;display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;}
+.mob-menu ul a{font-family:var(--mono);font-size:18px;color:var(--text);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;padding:16px 0;display:block;text-align:center;width:100%;border-bottom:1px solid var(--border);transition:color .2s;}
+.mob-menu ul a:hover{color:var(--accent);}
+/* ── GLOBAL OVERFLOW FIX ── */
+html,body{max-width:100%;overflow-x:hidden;}
+.ctaorb{width:min(900px,100vw)!important;}
+@media(max-width:900px){
+  body{cursor:auto!important;}
+  .cursor,.cursor-ring{display:none!important;}
+  .ham{display:flex;}
+  .nav-links{display:none!important;}
+  .nav-cta{display:none;}
+  .hero-stats{display:none!important;}
+  .orb,.o1,.o2,.o3,.ph-orb{width:min(500px,90vw)!important;right:-60px!important;}
+  #hero{padding:110px 20px 60px!important;min-height:auto;}
+  #hero h1{font-size:clamp(40px,11vw,72px)!important;}
+  .hero-content{max-width:100%!important;}
+  .hero-btns{flex-direction:column!important;}
+  .btn-p,.btn-s{width:100%;justify-content:center!important;}
+  section{overflow:hidden;}
+}
+
+</style>
+
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cring"></div>
+<nav id="nav">
+  <a href="index.html" class="nav-logo">bob<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="https://t.me/oxbobdev" class="nav-cta" target="_blank">→ Hire Me</a>
+<button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section id="page-hero">
+  <div class="ph-orb"></div>
+  <div class="ph-label">Blog</div>
+  <h1>Web3 Dev<br><span class="grad">Insights</span></h1>
+  <p class="ph-desc">Smart contract tutorials, DeFi breakdowns, bot architecture, tokenomics guides — everything I've learned shipping 20+ on-chain projects.</p>
+</section>
+
+<!-- BLOG GRID -->
+<section id="blog-list">
+  <div class="blog-grid">
+
+    <div class="blog-card reveal" onclick="openPost('staking')">
+      <div class="bc-img">⬡</div>
+      <div class="bc-body">
+        <div class="bc-meta"><span class="bc-tag t-sol">Solidity</span><span class="bc-tag t-defi">DeFi</span><span class="bc-date">March 2025</span></div>
+        <div class="bc-title">How to Deploy a Staking Contract on Base — Complete Guide</div>
+        <div class="bc-excerpt">Step-by-step walkthrough of building a production-ready ERC-20 staking contract with real-time rewards, lock periods, and gas optimization. Deployed on Base.</div>
+        <div class="bc-footer"><span class="bc-read">8 MIN READ</span><span class="bc-arr">↗</span></div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" onclick="openPost('tradingbot')">
+      <div class="bc-img">⚡</div>
+      <div class="bc-body">
+        <div class="bc-meta"><span class="bc-tag t-bot">Bots</span><span class="bc-tag t-defi">Trading</span><span class="bc-date">March 2025</span></div>
+        <div class="bc-title">Building a DEX Trading Bot in 2025 — Architecture and Stack</div>
+        <div class="bc-excerpt">Full breakdown of how to architect a DEX trading bot — from mempool monitoring and strategy engines to multi-wallet rotation and Telegram alerts.</div>
+        <div class="bc-footer"><span class="bc-read">10 MIN READ</span><span class="bc-arr">↗</span></div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" onclick="openPost('tokenomics')">
+      <div class="bc-img">⟁</div>
+      <div class="bc-body">
+        <div class="bc-meta"><span class="bc-tag t-token">Tokenomics</span><span class="bc-date">March 2025</span></div>
+        <div class="bc-title">Tokenomics Design in 2025 — What Works and What Kills Projects</div>
+        <div class="bc-excerpt">A practical guide to designing token supply, emissions, and vesting schedules that survive past launch day. Real examples, real mistakes, and what to do instead.</div>
+        <div class="bc-footer"><span class="bc-read">7 MIN READ</span><span class="bc-arr">↗</span></div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" onclick="openPost('launchpad')">
+      <div class="bc-img">🚀</div>
+      <div class="bc-body">
+        <div class="bc-meta"><span class="bc-tag t-launch">Launchpad</span><span class="bc-tag t-sol">Solidity</span><span class="bc-date">March 2025</span></div>
+        <div class="bc-title">How to Build a Token Launchpad — Presale Contract Guide</div>
+        <div class="bc-excerpt">Everything you need to build a secure token launchpad — presale mechanics, whitelist logic, softcap/hardcap, auto-refund, vesting on claim, and anti-bot protection.</div>
+        <div class="bc-footer"><span class="bc-read">9 MIN READ</span><span class="bc-arr">↗</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TAG CLOUD -->
+<section id="blog-sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-box reveal">
+      <div class="sb-title">Topics</div>
+      <div class="tag-cloud">
+        <span class="tag">Solidity</span><span class="tag">Smart Contracts</span><span class="tag">DeFi</span><span class="tag">Staking</span><span class="tag">Trading Bots</span><span class="tag">Tokenomics</span><span class="tag">Token Launch</span><span class="tag">Launchpad</span><span class="tag">NFT</span><span class="tag">EVM</span><span class="tag">Solana</span><span class="tag">Base</span><span class="tag">Arbitrum</span><span class="tag">MEV</span><span class="tag">Telegram Bots</span><span class="tag">Volume Bots</span><span class="tag">DApp Development</span><span class="tag">Web3 Frontend</span>
+      </div>
+    </div>
+    <div class="sidebar-box reveal">
+      <div class="sb-title">Need Something Built?</div>
+      <p style="font-size:14px;color:var(--tm);line-height:1.75;margin-bottom:20px;">Every guide here is something I build for clients. If you need a smart contract, DApp, bot, or full launch — let's talk.</p>
+      <a href="https://t.me/oxbobdev" class="btn-p" target="_blank" style="width:100%;justify-content:center;font-size:11px;">✦ Message on Telegram</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="ctaorb"></div>
+  <div class="sl2 reveal" style="justify-content:center">Hire Me</div>
+  <h2 style="font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.025em;margin-bottom:16px;" class="reveal">Read Enough?<br><span class="grad">Let's Build.</span></h2>
+  <p class="ctasub reveal">Everything in this blog is something I build for clients. DM me on Telegram and let's get started.</p>
+  <div class="cbtns reveal">
+    <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Message on Telegram</a>
+    <a href="work.html" class="btn-s">→ View My Work</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fcopy">© 2025 0xBob — Full Stack Web3 Developer</div>
+  <div class="fstatus"><div class="bdot"></div>Available for new projects</div>
+</footer>
+
+<!-- POST MODAL -->
+<div class="movl" id="ovl" onclick="closeOut(event)">
+  <div class="post"><div class="post-top"></div><div class="post-inner" id="pinner"></div></div>
+</div>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+const obs=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){e.target.style.transitionDelay=(i*.07)+'s';e.target.classList.add('up');}});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('nav').style.padding=window.scrollY>50?'12px 56px':'18px 56px';});
+
+const POSTS = {
+  staking: {
+    tag:'<span class="bc-tag t-sol">Solidity</span><span class="bc-tag t-defi">DeFi</span>',
+    date:'March 2025 · 8 min read',
+    title:'How to Deploy a Staking Contract on Base — Complete Guide',
+    intro:'Staking contracts are one of the most requested Web3 builds. This guide walks through deploying a production-ready ERC-20 staking contract on Base — from architecture to mainnet.',
+    body:`
+      <h2>Why Staking Contracts Get Complicated</h2>
+      <p>On paper, staking is simple: lock tokens, earn rewards, unlock after a period. But in practice, there are a dozen ways to get it wrong — from reward calculation bugs to reentrancy vulnerabilities to gas inefficiency that makes the contract unusable at scale.</p>
+      <p>This guide covers the right way to build it from scratch.</p>
+
+      <h2>Contract Architecture</h2>
+      <p>A production staking contract needs four core components:</p>
+      <ul>
+        <li><strong>Stake function</strong> — transfers tokens from user, records amount and timestamp</li>
+        <li><strong>Unstake function</strong> — enforces lock period, returns principal</li>
+        <li><strong>Claim function</strong> — calculates and transfers accrued rewards</li>
+        <li><strong>Emergency withdraw</strong> — allows exit with penalty if needed</li>
+      </ul>
+
+      <h2>The Reward Formula</h2>
+      <p>The most common mistake is calculating rewards only on unstake. You want real-time accrual so users can see their rewards growing. The correct formula:</p>
+      <div class="code-block">
+<span class="cm">// Calculate pending rewards at any point in time</span>
+<span class="kw">function</span> <span class="fn">pendingReward</span>(address user) <span class="kw">public view returns</span> (uint256) {
+    StakeInfo <span class="kw">storage</span> info = stakes[user];
+    <span class="kw">uint256</span> timeStaked = block.timestamp - info.startTime;
+    <span class="kw">return</span> (info.amount * APY * timeStaked) / (<span class="nm">365 days</span> * <span class="nm">100</span>);
+}
+      </div>
+
+      <h2>Gas Optimization That Actually Matters</h2>
+      <ul>
+        <li>Use <code>uint128</code> for token amounts — saves one storage slot vs uint256</li>
+        <li>Pack your StakeInfo struct: address + uint128 + uint64 fits in 2 slots</li>
+        <li>Cache storage reads in memory at the top of functions</li>
+        <li>Avoid loops — calculate per-user, not globally</li>
+      </ul>
+
+      <div class="tip-box">
+        <div class="tip-label">Security Note</div>
+        <p>Always apply the Checks-Effects-Interactions pattern. Update state before transferring tokens. Add OpenZeppelin's ReentrancyGuard and Pausable to every staking contract before mainnet.</p>
+      </div>
+
+      <h2>Deploying on Base</h2>
+      <p>Base is the best chain for new staking contracts right now — low gas, fast finality, and a growing DeFi ecosystem. Add Base to your Hardhat config:</p>
+      <div class="code-block">
+<span class="st">base</span>: {
+  url: <span class="st">"https://mainnet.base.org"</span>,
+  accounts: [process.env.PRIVATE_KEY],
+  chainId: <span class="nm">8453</span>
+}
+      </div>
+      <p>Then deploy and verify in one command:</p>
+      <div class="code-block">npx hardhat run scripts/deploy.js --network base
+npx hardhat verify --network base DEPLOYED_ADDRESS</div>
+
+      <h2>Checklist Before Mainnet</h2>
+      <ul>
+        <li>✓ Reentrancy guard on all state-changing functions</li>
+        <li>✓ Pause mechanism tested and working</li>
+        <li>✓ Admin functions behind AccessControl</li>
+        <li>✓ 100% branch test coverage with Hardhat</li>
+        <li>✓ Contract verified on Basescan</li>
+        <li>✓ Emergency withdraw tested on testnet</li>
+      </ul>
+    `
+  },
+
+  tradingbot: {
+    tag:'<span class="bc-tag t-bot">Bots</span><span class="bc-tag t-defi">Trading</span>',
+    date:'March 2025 · 10 min read',
+    title:'Building a DEX Trading Bot in 2025 — Architecture and Stack',
+    intro:'DEX trading bots are one of the most requested builds in crypto. This guide covers the full architecture — from strategy engine and RPC setup to multi-wallet execution and Telegram alerts.',
+    body:`
+      <h2>The Core Trading Loop</h2>
+      <p>Every trading bot — regardless of strategy — runs the same fundamental loop:</p>
+      <ol>
+        <li>Watch price / liquidity data via WebSocket</li>
+        <li>Run signal through strategy logic</li>
+        <li>Simulate trade: estimate output, check slippage</li>
+        <li>Execute if profitable after gas</li>
+        <li>Log result and notify via Telegram</li>
+      </ol>
+      <p>Everything else is making this loop fast and reliable.</p>
+
+      <h2>Stack Recommendations</h2>
+      <ul>
+        <li><strong>Node.js or Python</strong> — Node is faster for event-driven bots, Python is better for complex strategy math</li>
+        <li><strong>Ethers.js v6 or Web3.py</strong> — for on-chain interaction</li>
+        <li><strong>WebSocket RPC</strong> — Alchemy or QuickNode. Never use public RPCs for bots</li>
+        <li><strong>Uniswap SDK</strong> — for routing and quote simulation</li>
+        <li><strong>MongoDB</strong> — for trade history and analytics</li>
+      </ul>
+
+      <h2>Slippage — The Part Most Tutorials Skip</h2>
+      <p>Never hardcode slippage. Calculate it dynamically based on the pair and market conditions:</p>
+      <div class="code-block">
+<span class="cm">// Dynamic slippage calculation</span>
+<span class="kw">const</span> maxSlippage = isStablePair ? <span class="nm">0.005</span> : <span class="nm">0.02</span>; <span class="cm">// 0.5% or 2%</span>
+<span class="kw">const</span> amountOutMin = expectedOut * (<span class="nm">1</span> - maxSlippage);
+      </div>
+      <p>Too high and you get sandwiched. Too low and your transactions keep reverting.</p>
+
+      <h2>Multi-Wallet Rotation</h2>
+      <p>A single wallet trading bot is trivial to track and frontrun. Rotate across multiple wallets with randomized parameters:</p>
+      <ul>
+        <li>Randomize trade size within a defined range</li>
+        <li>Randomize timing gaps between trades (30–180 seconds)</li>
+        <li>Vary gas price within a ±10% band</li>
+        <li>Rotate across 5–20 funded wallets</li>
+      </ul>
+
+      <div class="tip-box">
+        <div class="tip-label">Performance Tip</div>
+        <p>Use a private mempool RPC (Alchemy, Blocknative) for faster transaction submission. Public RPCs introduce 200–500ms latency that kills competitive bot strategies.</p>
+      </div>
+
+      <h2>Telegram Integration</h2>
+      <p>Every trade bot needs live Telegram alerts. Connect via Telegraf and send notifications on every buy, sell, and error. Add a /status command so you can check PnL from your phone at any time.</p>
+
+      <h2>Deployment</h2>
+      <p>Run the bot on a dedicated VPS (DigitalOcean or Hetzner) with PM2 for process management and auto-restart on crash. Never run it on your local machine — uptime is everything.</p>
+    `
+  },
+
+  tokenomics: {
+    tag:'<span class="bc-tag t-token">Tokenomics</span>',
+    date:'March 2025 · 7 min read',
+    title:'Tokenomics Design in 2025 — What Works and What Kills Projects',
+    intro:'Most tokens fail not because of bad tech or bad teams — they fail because of bad tokenomics. This guide covers what actually works in 2025 and the most common mistakes that destroy projects post-launch.',
+    body:`
+      <h2>The Core Problem with Most Tokenomics</h2>
+      <p>Most projects design tokenomics for the launch, not for what comes after. High APY on day one drives initial price up, attracts mercenary capital, then the emissions hit, everyone sells, and the project never recovers.</p>
+      <p>Good tokenomics are designed for year two, not day one.</p>
+
+      <h2>Supply Design</h2>
+      <p>There is no universally correct total supply. What matters is how the supply is allocated and how it enters circulation. A general framework that works:</p>
+      <ul>
+        <li><strong>Team: 15–20%</strong> — 12-month cliff, 24-month linear vesting</li>
+        <li><strong>Investors: 10–15%</strong> — 6-month cliff, 18-month linear vesting</li>
+        <li><strong>Ecosystem / Treasury: 20–30%</strong> — DAO controlled, slow release</li>
+        <li><strong>Liquidity: 10–15%</strong> — locked at launch</li>
+        <li><strong>Community / Rewards: 30–40%</strong> — emissions over 3–5 years</li>
+      </ul>
+
+      <h2>Emissions — The Most Important Decision</h2>
+      <p>Emissions are how community rewards enter circulation. The single biggest mistake is front-loading emissions. Instead:</p>
+      <div class="code-block">
+<span class="cm">// Emissions should scale with protocol growth</span>
+<span class="cm">// Not be fixed regardless of TVL</span>
+
+Year 1: <span class="nm">40%</span> of community allocation
+Year 2: <span class="nm">30%</span> of community allocation
+Year 3: <span class="nm">20%</span> of community allocation
+Year 4+: <span class="nm">10%</span> remaining
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Key Principle</div>
+        <p>Sustainable APY beats flashy APY. A protocol offering 40% APY sustainably for three years is worth infinitely more than one offering 1000% for three weeks.</p>
+      </div>
+
+      <h2>Vesting — Protect Your Community</h2>
+      <p>Every token that team and investors hold needs vesting. No exceptions. The minimum viable vesting schedule:</p>
+      <ul>
+        <li>Team tokens: 12-month cliff minimum, then 24-month linear</li>
+        <li>Investor tokens: 6-month cliff, then 18-month linear</li>
+        <li>Advisors: 6-month cliff, then 12-month linear</li>
+      </ul>
+      <p>Without vesting, insiders can dump on launch day. This destroys community trust permanently.</p>
+
+      <h2>Burn Mechanisms</h2>
+      <p>Deflationary pressure can work, but only if it's tied to real protocol revenue. Burning tokens from protocol fees is legitimate. Burning tokens from nowhere creates artificial scarcity with no real backing.</p>
+
+      <h2>The Tokenomics Document</h2>
+      <p>Every project needs a clear, public tokenomics document before launch. It should include supply breakdown with exact numbers, full vesting schedule with cliff and release dates, emission schedule by month, and treasury management policy. Transparency builds trust. Vague tokenomics is a red flag that experienced investors will spot immediately.</p>
+    `
+  },
+
+  launchpad: {
+    tag:'<span class="bc-tag t-launch">Launchpad</span><span class="bc-tag t-sol">Solidity</span>',
+    date:'March 2025 · 9 min read',
+    title:'How to Build a Token Launchpad — Presale Contract Guide',
+    intro:'Token launchpads are one of the most requested Web3 builds right now. This guide covers building a secure presale contract with whitelist logic, softcap/hardcap mechanics, auto-refund, vesting on claim, and anti-bot protection.',
+    body:`
+      <h2>What a Launchpad Contract Needs</h2>
+      <p>A production launchpad is more complex than a simple token contract. It needs to handle multiple raise phases, protect contributors if goals aren't met, and prevent bots from taking all the allocation on launch. The core components:</p>
+      <ul>
+        <li><strong>Raise mechanics</strong> — whitelist phase + public FCFS phase</li>
+        <li><strong>Softcap / hardcap</strong> — auto-refund if softcap not reached</li>
+        <li><strong>Contribution limits</strong> — min and max per wallet</li>
+        <li><strong>Claim with vesting</strong> — tokens released linearly post-raise</li>
+        <li><strong>Anti-bot protection</strong> — block delay, max buy, cooldown</li>
+      </ul>
+
+      <h2>Raise Mechanics</h2>
+      <p>The most common setup is a two-phase raise: a whitelist phase with guaranteed allocation, followed by a public FCFS phase for remaining tokens. This rewards early supporters while still opening to the public.</p>
+      <div class="code-block">
+<span class="kw">enum</span> Phase { <span class="st">INACTIVE</span>, <span class="st">WHITELIST</span>, <span class="st">PUBLIC</span>, <span class="st">ENDED</span> }
+
+<span class="kw">function</span> <span class="fn">contribute</span>() <span class="kw">external payable</span> {
+    <span class="kw">require</span>(currentPhase != Phase.INACTIVE, <span class="st">"Not started"</span>);
+    <span class="kw">if</span>(currentPhase == Phase.WHITELIST) {
+        <span class="kw">require</span>(whitelist[msg.sender], <span class="st">"Not whitelisted"</span>);
+    }
+    <span class="kw">require</span>(msg.value >= minContribution, <span class="st">"Below minimum"</span>);
+    <span class="kw">require</span>(contributions[msg.sender] + msg.value <= maxContribution);
+    contributions[msg.sender] += msg.value;
+    totalRaised += msg.value;
+}
+      </div>
+
+      <h2>Softcap and Auto-Refund</h2>
+      <p>This is the most important safety mechanism. If the softcap isn't reached by the deadline, every contributor must be able to claim a full refund. Never let a project hold funds without this:</p>
+      <div class="code-block">
+<span class="kw">function</span> <span class="fn">claimRefund</span>() <span class="kw">external</span> {
+    <span class="kw">require</span>(block.timestamp > endTime, <span class="st">"Sale not ended"</span>);
+    <span class="kw">require</span>(totalRaised < softCap, <span class="st">"Softcap reached"</span>);
+    <span class="kw">uint256</span> amount = contributions[msg.sender];
+    contributions[msg.sender] = <span class="nm">0</span>;
+    payable(msg.sender).transfer(amount);
+}
+      </div>
+
+      <h2>Vesting on Claim</h2>
+      <p>Releasing all tokens to contributors immediately on claim creates instant sell pressure. Instead, vest tokens linearly over 1–6 months after the raise completes. This protects the token price and rewards long-term holders.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Anti-Bot Protection</div>
+        <p>Add a block delay between contribution and claiming: require that at least 2 blocks have passed since contribution. Add a per-wallet max buy. Add a cooldown between contributions from the same wallet. These three measures stop most bot attacks.</p>
+      </div>
+
+      <h2>The Launchpad Website</h2>
+      <p>The contract is only half of a launchpad. You also need a frontend that shows the live raise progress, countdown timer, whitelist checker, and contribution UI. Built in React with Wagmi for wallet connection and real-time contract reads.</p>
+
+      <h2>Deployment Checklist</h2>
+      <ul>
+        <li>✓ Whitelist addresses set before sale start</li>
+        <li>✓ Softcap and hardcap verified on testnet</li>
+        <li>✓ Auto-refund tested with a failed raise scenario</li>
+        <li>✓ Vesting math checked with multiple contributor amounts</li>
+        <li>✓ Anti-bot params configured and tested</li>
+        <li>✓ Contract verified and audited before marketing</li>
+      </ul>
+    `
+  }
+};
+
+function openPost(key) {
+  const p = POSTS[key]; if(!p) return;
+  document.getElementById('pinner').innerHTML = `
+    <button class="pclose" onclick="closePost()">✕</button>
+    <div class="post-meta">${p.tag}<span class="bc-date">${p.date}</span></div>
+    <h1>${p.title}</h1>
+    <p class="post-intro">${p.intro}</p>
+    ${p.body}
+    <div class="post-cta">
+      <h3>Need This Built?</h3>
+      <p>This is exactly what I do for clients. Message me on Telegram and let's scope your project.</p>
+      <div class="post-cta-btns">
+        <a href="https://t.me/oxbobdev" class="btn-p" target="_blank">✦ Message on Telegram</a>
+        <a href="work.html" class="btn-s">→ See Related Work</a>
+      </div>
+    </div>`;
+  document.getElementById('ovl').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('ovl').scrollTop=0;
+}
+function closePost(){document.getElementById('ovl').classList.remove('open');document.body.style.overflow='';}
+function closeOut(e){if(e.target===document.getElementById('ovl'))closePost();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePost();});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var btn=document.getElementById('ham');
+  var menu=document.getElementById('mobMenu');
+  if(btn&&menu){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+    });
+    // close on link tap
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        btn.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow='';
+      });
+    });
+  }
+});
+</script>
+</body>
+</html>
