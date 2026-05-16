@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Web3 Dev Blog — Smart Contracts, DeFi, Bots | 0xBob</title>
 <meta name="description" content="Web3 development blog — Solidity tutorials, DeFi protocol guides, trading bot walkthroughs, tokenomics breakdowns, and smart contract best practices. By 0xBob, Full Stack Web3 Developer."/>
-<meta name="keywords" content="solidity tutorial, smart contract development guide, how to deploy staking contract, DeFi protocol development, trading bot development, tokenomics design, web3 developer blog, hire solidity developer, token launchpad development, ERC20 token development"/>
+<meta name="keywords" content="solidity tutorial, smart contract development guide, how to deploy staking contract, DeFi protocol development, trading bot development, tokenomics design, web3 developer blog, hire solidity developer, token launchpad development, ERC20 token development, telegram buy alert bot, supply buy bot"/>
 <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 <link rel="icon" href="favicon-512.png" sizes="512x512"/>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
@@ -59,6 +59,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 56px;display:fl
 .t-bot{color:#f472b6;border-color:rgba(244,114,182,.3);background:rgba(244,114,182,.08);}
 .t-token{color:#fb923c;border-color:rgba(251,146,60,.3);background:rgba(251,146,60,.08);}
 .t-launch{color:#a78bfa;border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.08);}
+.t-telegram{color:#34d399;border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.08);}
 .bc-date{font-family:var(--mono);font-size:10px;color:var(--td);letter-spacing:.1em;}
 .bc-title{font-family:var(--display);font-size:20px;font-weight:800;margin-bottom:10px;line-height:1.2;color:var(--text);}
 .bc-excerpt{font-size:13px;color:var(--tm);line-height:1.75;margin-bottom:20px;}
@@ -228,6 +229,17 @@ html,body{max-width:100%;overflow-x:hidden;}
       </div>
     </div>
 
+    <!-- NEW: Supply Buy Bot Blog Post -->
+    <div class="blog-card reveal" onclick="openPost('supplybot')">
+      <div class="bc-img">🤖</div>
+      <div class="bc-body">
+        <div class="bc-meta"><span class="bc-tag t-bot">Bots</span><span class="bc-tag t-telegram">Telegram</span><span class="bc-date">May 2026</span></div>
+        <div class="bc-title">Building a Telegram Buy Alert Bot — Multi-Chain Detection System</div>
+        <div class="bc-excerpt">Complete guide to building a production-ready Telegram buy alert bot that tracks token purchases across BSC, ETH & BASE in real-time — with whale detection, trending rankings, and buy competitions.</div>
+        <div class="bc-footer"><span class="bc-read">12 MIN READ</span><span class="bc-arr">↗</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -237,7 +249,7 @@ html,body{max-width:100%;overflow-x:hidden;}
     <div class="sidebar-box reveal">
       <div class="sb-title">Topics</div>
       <div class="tag-cloud">
-        <span class="tag">Solidity</span><span class="tag">Smart Contracts</span><span class="tag">DeFi</span><span class="tag">Staking</span><span class="tag">Trading Bots</span><span class="tag">Tokenomics</span><span class="tag">Token Launch</span><span class="tag">Launchpad</span><span class="tag">NFT</span><span class="tag">EVM</span><span class="tag">Solana</span><span class="tag">Base</span><span class="tag">Arbitrum</span><span class="tag">MEV</span><span class="tag">Telegram Bots</span><span class="tag">Volume Bots</span><span class="tag">DApp Development</span><span class="tag">Web3 Frontend</span>
+        <span class="tag">Solidity</span><span class="tag">Smart Contracts</span><span class="tag">DeFi</span><span class="tag">Staking</span><span class="tag">Trading Bots</span><span class="tag">Buy Alert Bot</span><span class="tag">Telegram Bots</span><span class="tag">Tokenomics</span><span class="tag">Token Launch</span><span class="tag">Launchpad</span><span class="tag">NFT</span><span class="tag">EVM</span><span class="tag">Solana</span><span class="tag">Base</span><span class="tag">BSC</span><span class="tag">Arbitrum</span><span class="tag">MEV</span><span class="tag">Volume Bots</span><span class="tag">DApp Development</span><span class="tag">Web3 Frontend</span>
       </div>
     </div>
     <div class="sidebar-box reveal">
@@ -285,246 +297,35 @@ const POSTS = {
     date:'March 2026 · 8 min read',
     title:'How to Deploy a Staking Contract on Base — Complete Guide',
     intro:'Staking contracts are one of the most requested Web3 builds. This guide walks through deploying a production-ready ERC-20 staking contract on Base — from architecture to mainnet.',
-    body:`
-      <h2>Why Staking Contracts Get Complicated</h2>
-      <p>On paper, staking is simple: lock tokens, earn rewards, unlock after a period. But in practice, there are a dozen ways to get it wrong — from reward calculation bugs to reentrancy vulnerabilities to gas inefficiency that makes the contract unusable at scale.</p>
-      <p>This guide covers the right way to build it from scratch.</p>
-
-      <h2>Contract Architecture</h2>
-      <p>A production staking contract needs four core components:</p>
-      <ul>
-        <li><strong>Stake function</strong> — transfers tokens from user, records amount and timestamp</li>
-        <li><strong>Unstake function</strong> — enforces lock period, returns principal</li>
-        <li><strong>Claim function</strong> — calculates and transfers accrued rewards</li>
-        <li><strong>Emergency withdraw</strong> — allows exit with penalty if needed</li>
-      </ul>
-
-      <h2>The Reward Formula</h2>
-      <p>The most common mistake is calculating rewards only on unstake. You want real-time accrual so users can see their rewards growing. The correct formula:</p>
-      <div class="code-block">
-<span class="cm">// Calculate pending rewards at any point in time</span>
-<span class="kw">function</span> <span class="fn">pendingReward</span>(address user) <span class="kw">public view returns</span> (uint256) {
-    StakeInfo <span class="kw">storage</span> info = stakes[user];
-    <span class="kw">uint256</span> timeStaked = block.timestamp - info.startTime;
-    <span class="kw">return</span> (info.amount * APY * timeStaked) / (<span class="nm">365 days</span> * <span class="nm">100</span>);
-}
-      </div>
-
-      <h2>Gas Optimization That Actually Matters</h2>
-      <ul>
-        <li>Use <code>uint128</code> for token amounts — saves one storage slot vs uint256</li>
-        <li>Pack your StakeInfo struct: address + uint128 + uint64 fits in 2 slots</li>
-        <li>Cache storage reads in memory at the top of functions</li>
-        <li>Avoid loops — calculate per-user, not globally</li>
-      </ul>
-
-      <div class="tip-box">
-        <div class="tip-label">Security Note</div>
-        <p>Always apply the Checks-Effects-Interactions pattern. Update state before transferring tokens. Add OpenZeppelin's ReentrancyGuard and Pausable to every staking contract before mainnet.</p>
-      </div>
-
-      <h2>Deploying on Base</h2>
-      <p>Base is the best chain for new staking contracts right now — low gas, fast finality, and a growing DeFi ecosystem. Add Base to your Hardhat config:</p>
-      <div class="code-block">
-<span class="st">base</span>: {
-  url: <span class="st">"https://mainnet.base.org"</span>,
-  accounts: [process.env.PRIVATE_KEY],
-  chainId: <span class="nm">8453</span>
-}
-      </div>
-      <p>Then deploy and verify in one command:</p>
-      <div class="code-block">npx hardhat run scripts/deploy.js --network base
-npx hardhat verify --network base DEPLOYED_ADDRESS</div>
-
-      <h2>Checklist Before Mainnet</h2>
-      <ul>
-        <li>✓ Reentrancy guard on all state-changing functions</li>
-        <li>✓ Pause mechanism tested and working</li>
-        <li>✓ Admin functions behind AccessControl</li>
-        <li>✓ 100% branch test coverage with Hardhat</li>
-        <li>✓ Contract verified on Basescan</li>
-        <li>✓ Emergency withdraw tested on testnet</li>
-      </ul>
-    `
+    body: '<h2>Why Staking Contracts Get Complicated</h2><p>On paper, staking is simple: lock tokens, earn rewards, unlock after a period. But in practice, there are a dozen ways to get it wrong — from reward calculation bugs to reentrancy vulnerabilities to gas inefficiency that makes the contract unusable at scale.</p><p>This guide covers the right way to build it from scratch.</p><h2>Contract Architecture</h2><p>A production staking contract needs four core components:</p><ul><li><strong>Stake function</strong> — transfers tokens from user, records amount and timestamp</li><li><strong>Unstake function</strong> — enforces lock period, returns principal</li><li><strong>Claim function</strong> — calculates and transfers accrued rewards</li><li><strong>Emergency withdraw</strong> — allows exit with penalty if needed</li></ul><h2>The Reward Formula</h2><p>The most common mistake is calculating rewards only on unstake. You want real-time accrual so users can see their rewards growing.</p><div class=\"code-block\"><span class=\"cm\">// Calculate pending rewards at any point in time</span><br><span class=\"kw\">function</span> <span class=\"fn\">pendingReward</span>(address user) <span class=\"kw\">public view returns</span> (uint256) {<br>    StakeInfo <span class=\"kw\">storage</span> info = stakes[user];<br>    <span class=\"kw\">uint256</span> timeStaked = block.timestamp - info.startTime;<br>    <span class=\"kw\">return</span> (info.amount * APY * timeStaked) / (<span class=\"nm\">365 days</span> * <span class=\"nm\">100</span>);<br>}</div><div class=\"tip-box\"><div class=\"tip-label\">Security Note</div><p>Always apply the Checks-Effects-Interactions pattern. Update state before transferring tokens. Add OpenZeppelin\'s ReentrancyGuard and Pausable to every staking contract before mainnet.</p></div><h2>Checklist Before Mainnet</h2><ul><li>✓ Reentrancy guard on all state-changing functions</li><li>✓ Pause mechanism tested and working</li><li>✓ Admin functions behind AccessControl</li><li>✓ 100% branch test coverage with Hardhat</li><li>✓ Contract verified on Basescan</li></ul>'
   },
-
   tradingbot: {
     tag:'<span class="bc-tag t-bot">Bots</span><span class="bc-tag t-defi">Trading</span>',
     date:'March 2026 · 10 min read',
     title:'Building a DEX Trading Bot in 2026 — Architecture and Stack',
     intro:'DEX trading bots are one of the most requested builds in crypto. This guide covers the full architecture — from strategy engine and RPC setup to multi-wallet execution and Telegram alerts.',
-    body:`
-      <h2>The Core Trading Loop</h2>
-      <p>Every trading bot — regardless of strategy — runs the same fundamental loop:</p>
-      <ol>
-        <li>Watch price / liquidity data via WebSocket</li>
-        <li>Run signal through strategy logic</li>
-        <li>Simulate trade: estimate output, check slippage</li>
-        <li>Execute if profitable after gas</li>
-        <li>Log result and notify via Telegram</li>
-      </ol>
-      <p>Everything else is making this loop fast and reliable.</p>
-
-      <h2>Stack Recommendations</h2>
-      <ul>
-        <li><strong>Node.js or Python</strong> — Node is faster for event-driven bots, Python is better for complex strategy math</li>
-        <li><strong>Ethers.js v6 or Web3.py</strong> — for on-chain interaction</li>
-        <li><strong>WebSocket RPC</strong> — Alchemy or QuickNode. Never use public RPCs for bots</li>
-        <li><strong>Uniswap SDK</strong> — for routing and quote simulation</li>
-        <li><strong>MongoDB</strong> — for trade history and analytics</li>
-      </ul>
-
-      <h2>Slippage — The Part Most Tutorials Skip</h2>
-      <p>Never hardcode slippage. Calculate it dynamically based on the pair and market conditions:</p>
-      <div class="code-block">
-<span class="cm">// Dynamic slippage calculation</span>
-<span class="kw">const</span> maxSlippage = isStablePair ? <span class="nm">0.005</span> : <span class="nm">0.02</span>; <span class="cm">// 0.5% or 2%</span>
-<span class="kw">const</span> amountOutMin = expectedOut * (<span class="nm">1</span> - maxSlippage);
-      </div>
-      <p>Too high and you get sandwiched. Too low and your transactions keep reverting.</p>
-
-      <h2>Multi-Wallet Rotation</h2>
-      <p>A single wallet trading bot is trivial to track and frontrun. Rotate across multiple wallets with randomized parameters:</p>
-      <ul>
-        <li>Randomize trade size within a defined range</li>
-        <li>Randomize timing gaps between trades (30–180 seconds)</li>
-        <li>Vary gas price within a ±10% band</li>
-        <li>Rotate across 5–20 funded wallets</li>
-      </ul>
-
-      <div class="tip-box">
-        <div class="tip-label">Performance Tip</div>
-        <p>Use a private mempool RPC (Alchemy, Blocknative) for faster transaction submission. Public RPCs introduce 200–500ms latency that kills competitive bot strategies.</p>
-      </div>
-
-      <h2>Telegram Integration</h2>
-      <p>Every trade bot needs live Telegram alerts. Connect via Telegraf and send notifications on every buy, sell, and error. Add a /status command so you can check PnL from your phone at any time.</p>
-
-      <h2>Deployment</h2>
-      <p>Run the bot on a dedicated VPS (DigitalOcean or Hetzner) with PM2 for process management and auto-restart on crash. Never run it on your local machine — uptime is everything.</p>
-    `
+    body: '<h2>The Core Trading Loop</h2><p>Every trading bot runs the same fundamental loop: watch price data, run strategy, simulate trade, execute if profitable, log result.</p><h2>Stack Recommendations</h2><ul><li><strong>Node.js or Python</strong> — Node for event-driven, Python for complex math</li><li><strong>Ethers.js v6 or Web3.py</strong> — for on-chain interaction</li><li><strong>WebSocket RPC</strong> — Alchemy or QuickNode</li><li><strong>Uniswap SDK</strong> — for routing and quote simulation</li></ul><div class=\"tip-box\"><div class=\"tip-label\">Performance Tip</div><p>Use a private mempool RPC for faster transaction submission. Public RPCs introduce 200-500ms latency.</p></div><h2>Multi-Wallet Rotation</h2><p>Rotate across multiple wallets with randomized trade sizes, timing gaps, and gas prices to avoid detection.</p><h2>Deployment</h2><p>Run the bot on a dedicated VPS with PM2 for process management and auto-restart on crash.</p>'
   },
-
   tokenomics: {
     tag:'<span class="bc-tag t-token">Tokenomics</span>',
     date:'March 2026 · 7 min read',
     title:'Tokenomics Design in 2026 — What Works and What Kills Projects',
-    intro:'Most tokens fail not because of bad tech or bad teams — they fail because of bad tokenomics. This guide covers what actually works in 2026 and the most common mistakes that destroy projects post-launch.',
-    body:`
-      <h2>The Core Problem with Most Tokenomics</h2>
-      <p>Most projects design tokenomics for the launch, not for what comes after. High APY on day one drives initial price up, attracts mercenary capital, then the emissions hit, everyone sells, and the project never recovers.</p>
-      <p>Good tokenomics are designed for year two, not day one.</p>
-
-      <h2>Supply Design</h2>
-      <p>There is no universally correct total supply. What matters is how the supply is allocated and how it enters circulation. A general framework that works:</p>
-      <ul>
-        <li><strong>Team: 15–20%</strong> — 12-month cliff, 24-month linear vesting</li>
-        <li><strong>Investors: 10–15%</strong> — 6-month cliff, 18-month linear vesting</li>
-        <li><strong>Ecosystem / Treasury: 20–30%</strong> — DAO controlled, slow release</li>
-        <li><strong>Liquidity: 10–15%</strong> — locked at launch</li>
-        <li><strong>Community / Rewards: 30–40%</strong> — emissions over 3–5 years</li>
-      </ul>
-
-      <h2>Emissions — The Most Important Decision</h2>
-      <p>Emissions are how community rewards enter circulation. The single biggest mistake is front-loading emissions. Instead:</p>
-      <div class="code-block">
-<span class="cm">// Emissions should scale with protocol growth</span>
-<span class="cm">// Not be fixed regardless of TVL</span>
-
-Year 1: <span class="nm">40%</span> of community allocation
-Year 2: <span class="nm">30%</span> of community allocation
-Year 3: <span class="nm">20%</span> of community allocation
-Year 4+: <span class="nm">10%</span> remaining
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">Key Principle</div>
-        <p>Sustainable APY beats flashy APY. A protocol offering 40% APY sustainably for three years is worth infinitely more than one offering 1000% for three weeks.</p>
-      </div>
-
-      <h2>Vesting — Protect Your Community</h2>
-      <p>Every token that team and investors hold needs vesting. No exceptions. The minimum viable vesting schedule:</p>
-      <ul>
-        <li>Team tokens: 12-month cliff minimum, then 24-month linear</li>
-        <li>Investor tokens: 6-month cliff, then 18-month linear</li>
-        <li>Advisors: 6-month cliff, then 12-month linear</li>
-      </ul>
-      <p>Without vesting, insiders can dump on launch day. This destroys community trust permanently.</p>
-
-      <h2>Burn Mechanisms</h2>
-      <p>Deflationary pressure can work, but only if it's tied to real protocol revenue. Burning tokens from protocol fees is legitimate. Burning tokens from nowhere creates artificial scarcity with no real backing.</p>
-
-      <h2>The Tokenomics Document</h2>
-      <p>Every project needs a clear, public tokenomics document before launch. It should include supply breakdown with exact numbers, full vesting schedule with cliff and release dates, emission schedule by month, and treasury management policy. Transparency builds trust. Vague tokenomics is a red flag that experienced investors will spot immediately.</p>
-    `
+    intro:'Most tokens fail not because of bad tech or bad teams — they fail because of bad tokenomics.',
+    body: '<h2>The Core Problem</h2><p>Most projects design tokenomics for the launch, not for what comes after. Good tokenomics are designed for year two, not day one.</p><h2>Supply Design Framework</h2><ul><li><strong>Team: 15-20%</strong> — 12-month cliff, 24-month linear</li><li><strong>Investors: 10-15%</strong> — 6-month cliff, 18-month linear</li><li><strong>Ecosystem: 20-30%</strong> — DAO controlled</li><li><strong>Liquidity: 10-15%</strong> — locked at launch</li><li><strong>Community: 30-40%</strong> — emissions over 3-5 years</li></ul><div class=\"tip-box\"><div class=\"tip-label\">Key Principle</div><p>Sustainable APY beats flashy APY. A protocol offering 40% APY sustainably for three years is worth infinitely more than one offering 1000% for three weeks.</p></div><h2>Vesting — Protect Your Community</h2><p>Every token that team and investors hold needs vesting. No exceptions.</p>'
   },
-
   launchpad: {
     tag:'<span class="bc-tag t-launch">Launchpad</span><span class="bc-tag t-sol">Solidity</span>',
     date:'March 2026 · 9 min read',
     title:'How to Build a Token Launchpad — Presale Contract Guide',
-    intro:'Token launchpads are one of the most requested Web3 builds right now. This guide covers building a secure presale contract with whitelist logic, softcap/hardcap mechanics, auto-refund, vesting on claim, and anti-bot protection.',
-    body:`
-      <h2>What a Launchpad Contract Needs</h2>
-      <p>A production launchpad is more complex than a simple token contract. It needs to handle multiple raise phases, protect contributors if goals aren't met, and prevent bots from taking all the allocation on launch. The core components:</p>
-      <ul>
-        <li><strong>Raise mechanics</strong> — whitelist phase + public FCFS phase</li>
-        <li><strong>Softcap / hardcap</strong> — auto-refund if softcap not reached</li>
-        <li><strong>Contribution limits</strong> — min and max per wallet</li>
-        <li><strong>Claim with vesting</strong> — tokens released linearly post-raise</li>
-        <li><strong>Anti-bot protection</strong> — block delay, max buy, cooldown</li>
-      </ul>
-
-      <h2>Raise Mechanics</h2>
-      <p>The most common setup is a two-phase raise: a whitelist phase with guaranteed allocation, followed by a public FCFS phase for remaining tokens. This rewards early supporters while still opening to the public.</p>
-      <div class="code-block">
-<span class="kw">enum</span> Phase { <span class="st">INACTIVE</span>, <span class="st">WHITELIST</span>, <span class="st">PUBLIC</span>, <span class="st">ENDED</span> }
-
-<span class="kw">function</span> <span class="fn">contribute</span>() <span class="kw">external payable</span> {
-    <span class="kw">require</span>(currentPhase != Phase.INACTIVE, <span class="st">"Not started"</span>);
-    <span class="kw">if</span>(currentPhase == Phase.WHITELIST) {
-        <span class="kw">require</span>(whitelist[msg.sender], <span class="st">"Not whitelisted"</span>);
-    }
-    <span class="kw">require</span>(msg.value >= minContribution, <span class="st">"Below minimum"</span>);
-    <span class="kw">require</span>(contributions[msg.sender] + msg.value <= maxContribution);
-    contributions[msg.sender] += msg.value;
-    totalRaised += msg.value;
-}
-      </div>
-
-      <h2>Softcap and Auto-Refund</h2>
-      <p>This is the most important safety mechanism. If the softcap isn't reached by the deadline, every contributor must be able to claim a full refund. Never let a project hold funds without this:</p>
-      <div class="code-block">
-<span class="kw">function</span> <span class="fn">claimRefund</span>() <span class="kw">external</span> {
-    <span class="kw">require</span>(block.timestamp > endTime, <span class="st">"Sale not ended"</span>);
-    <span class="kw">require</span>(totalRaised < softCap, <span class="st">"Softcap reached"</span>);
-    <span class="kw">uint256</span> amount = contributions[msg.sender];
-    contributions[msg.sender] = <span class="nm">0</span>;
-    payable(msg.sender).transfer(amount);
-}
-      </div>
-
-      <h2>Vesting on Claim</h2>
-      <p>Releasing all tokens to contributors immediately on claim creates instant sell pressure. Instead, vest tokens linearly over 1–6 months after the raise completes. This protects the token price and rewards long-term holders.</p>
-
-      <div class="tip-box">
-        <div class="tip-label">Anti-Bot Protection</div>
-        <p>Add a block delay between contribution and claiming: require that at least 2 blocks have passed since contribution. Add a per-wallet max buy. Add a cooldown between contributions from the same wallet. These three measures stop most bot attacks.</p>
-      </div>
-
-      <h2>The Launchpad Website</h2>
-      <p>The contract is only half of a launchpad. You also need a frontend that shows the live raise progress, countdown timer, whitelist checker, and contribution UI. Built in React with Wagmi for wallet connection and real-time contract reads.</p>
-
-      <h2>Deployment Checklist</h2>
-      <ul>
-        <li>✓ Whitelist addresses set before sale start</li>
-        <li>✓ Softcap and hardcap verified on testnet</li>
-        <li>✓ Auto-refund tested with a failed raise scenario</li>
-        <li>✓ Vesting math checked with multiple contributor amounts</li>
-        <li>✓ Anti-bot params configured and tested</li>
-        <li>✓ Contract verified and audited before marketing</li>
-      </ul>
-    `
+    intro:'Token launchpads are one of the most requested Web3 builds right now.',
+    body: '<h2>What a Launchpad Contract Needs</h2><ul><li><strong>Raise mechanics</strong> — whitelist phase + public FCFS phase</li><li><strong>Softcap / hardcap</strong> — auto-refund if softcap not reached</li><li><strong>Contribution limits</strong> — min and max per wallet</li><li><strong>Claim with vesting</strong> — tokens released linearly post-raise</li><li><strong>Anti-bot protection</strong> — block delay, max buy, cooldown</li></ul><div class=\"code-block\"><span class=\"kw\">enum</span> Phase { <span class=\"st\">INACTIVE</span>, <span class=\"st\">WHITELIST</span>, <span class=\"st\">PUBLIC</span>, <span class=\"st\">ENDED</span> }<br><br><span class=\"kw\">function</span> <span class=\"fn\">contribute</span>() <span class=\"kw\">external payable</span> {<br>    <span class=\"kw\">require</span>(currentPhase != Phase.INACTIVE, <span class=\"st\">"Not started"</span>);<br>    <span class=\"kw\">if</span>(currentPhase == Phase.WHITELIST) {<br>        <span class=\"kw\">require</span>(whitelist[msg.sender], <span class=\"st\">"Not whitelisted"</span>);<br>    }<br>    contributions[msg.sender] += msg.value;<br>    totalRaised += msg.value;<br>}</div><div class=\"tip-box\"><div class=\"tip-label\">Anti-Bot Protection</div><p>Add block delay, per-wallet max buy, and cooldown between contributions.</p></div><h2>Deployment Checklist</h2><ul><li>✓ Whitelist addresses set before sale start</li><li>✓ Softcap and hardcap verified on testnet</li><li>✓ Auto-refund tested with failed raise scenario</li><li>✓ Vesting math checked</li><li>✓ Anti-bot params configured</li></ul>'
+  },
+  supplybot: {
+    tag:'<span class="bc-tag t-bot">Bots</span><span class="bc-tag t-telegram">Telegram</span>',
+    date:'May 2026 · 12 min read',
+    title:'Building a Telegram Buy Alert Bot — Multi-Chain Detection System',
+    intro:'Telegram buy alert bots are essential for token communities. This guide walks through building a production-ready bot that tracks purchases across BSC, ETH & BASE in real-time.',
+    body: '<h2>What Makes a Great Buy Alert Bot</h2><p>A buy alert bot does more than just post transaction notifications. It builds community engagement, provides market intelligence, and creates FOMO that drives volume.</p><h2>Core Architecture</h2><p>The bot runs on a continuous loop across multiple chains using DexScreener API for real-time price and transaction data.</p><div class=\"code-block\"><span class=\"cm\"># Main monitoring loop</span><br><span class=\"kw\">while</span> True:<br>    <span class=\"kw\">for</span> chain <span class=\"kw\">in</span> [<span class=\"st\">\'bsc\'</span>, <span class=\"st\">\'eth\'</span>, <span class=\"st\">\'base\'</span>]:<br>        buys = get_token_transfers(chain, token)<br>        <span class=\"kw\">for</span> tx <span class=\"kw\">in</span> buys:<br>            process_transaction(chain, token, tx)<br>    sleep(<span class=\"nm\">2</span>)</div><h2>Real-Time Detection with DexScreener</h2><div class=\"code-block\"><span class=\"kw\">def</span> <span class=\"fn\">check_new_buys</span>(token_address, chain):<br>    url = <span class=\"st\">f"https://api.dexscreener.com/latest/dex/token/{token_address}"</span><br>    data = requests.get(url).json()<br>    pair = data[<span class=\"st\">\'pairs\'</span>][<span class=\"nm\">0</span>]<br>    <span class=\"kw\">return</span> {<br>        <span class=\"st\">\'price\'</span>: pair[<span class=\"st\">\'priceUsd\'</span>],<br>        <span class=\"st\">\'volume\'</span>: pair[<span class=\"st\">\'volume\'</span>][<span class=\"st\">\'h24\'</span>],<br>        <span class=\"st\">\'marketCap\'</span>: pair[<span class=\"st\">\'fdv\'</span>]<br>    }</div><div class=\"tip-box\"><div class=\"tip-label\">Pro Tip</div><p>Add a configurable minimum USD threshold for alerts. Not every small buy needs to be announced — set a floor to keep your channel valuable. Whale thresholds ($10k+) get special formatting.</p></div><h2>Whale Detection System</h2><div class=\"code-block\"><span class=\"kw\">def</span> <span class=\"fn\">format_alert</span>(amount_usd):<br>    <span class=\"kw\">if</span> amount_usd >= <span class=\"nm\">10000</span>:<br>        <span class=\"kw\">return</span> <span class=\"st\">"🐋 WHALE BUY"</span><br>    <span class=\"kw\">elif</span> amount_usd >= <span class=\"nm\">1000</span>:<br>        <span class=\"kw\">return</span> <span class=\"st\">"🦈 LARGE BUY"</span><br>    <span class=\"kw\">else</span>:<br>        <span class=\"kw\">return</span> <span class=\"st\">"🟢 NEW BUY"</span></div><h2>Trending System with SQLite</h2><div class=\"code-block\"><span class=\"kw\">CREATE TABLE</span> token_stats (<br>    token_address TEXT PRIMARY KEY,<br>    volume_24h REAL,<br>    buy_count INTEGER,<br>    last_update TIMESTAMP<br>);<br><br><span class=\"kw\">def</span> <span class=\"fn\">get_top_tokens</span>(limit=<span class=\"nm\">5</span>):<br>    <span class=\"kw\">return</span> cursor.execute(<br>        <span class=\"st\">"SELECT token_address, volume_24h FROM token_stats ORDER BY volume_24h DESC LIMIT ?"</span>,<br>        (limit,)<br>    ).fetchall()</div><h2>Buy Competitions (Gamification)</h2><div class=\"code-block\"><span class=\"kw\">CREATE TABLE</span> competition_scores (<br>    wallet_address TEXT,<br>    token_address TEXT,<br>    total_buy_volume REAL,<br>    buy_count INTEGER,<br>    last_buy TIMESTAMP<br>);</div><div class=\"tip-box\"><div class=\"tip-label\">Monetization Strategy</div><p>The trending system can include both free and paid spots. Free spots rank by volume organically. Paid spots allow token projects to appear in top positions for a fee — creating sustainable revenue.</p></div><h2>Flask Web Dashboard</h2><div class=\"code-block\"><span class=\"kw\">from</span> flask <span class=\"kw\">import</span> Flask<br>app = Flask(__name__)<br><br>@app.route(<span class=\"st\">\'/\'</span>)<br><span class=\"kw\">def</span> <span class=\"fn\">dashboard</span>():<br>    tokens = get_tracked_tokens()<br>    stats = get_all_stats()<br>    <span class=\"kw\">return</span> render_template(<span class=\"st\">\'dashboard.html\'</span>, tokens=tokens, stats=stats)</div><h2>Deployment Checklist</h2><ul><li>✓ DexScreener API integrated (free tier works great)</li><li>✓ SQLite database initialized with all tables</li><li>✓ Telegram bot token obtained from @BotFather</li><li>✓ Whale thresholds configured per token</li><li>✓ Trending system tested with multiple tokens</li><li>✓ Flask dashboard accessible</li><li>✓ Bot running on VPS with PM2 for auto-restart</li></ul>'
   }
 };
 
@@ -563,7 +364,6 @@ document.addEventListener('DOMContentLoaded',function(){
       menu.classList.toggle('open');
       document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
     });
-    // close on link tap
     menu.querySelectorAll('a').forEach(function(a){
       a.addEventListener('click',function(){
         btn.classList.remove('open');
